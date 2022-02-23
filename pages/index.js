@@ -4,9 +4,5 @@ import styles from "../styles/Home.module.css";
 import Homepage from "../pages/component/homePage";
 
 export default function Home() {
-  return (
-    <div>
-      <Homepage />
-    </div>
-  );
+  return <div></div>;
 }
