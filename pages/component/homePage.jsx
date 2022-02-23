@@ -8,7 +8,7 @@ function homePage() {
       <div className="grid grid-cols-2">
         <div class="grid px-[60px] self-center">
           <p className="text-rose-600 font-semibold">
-            Register to get Special Discount ! test
+            Register to get Special Discount !
           </p>
           <p className=" w-[500px] mb-2 tracking-tight leading-[60px] font-poppins font-bold text-[60px] uppercase">
             {" "}
