@@ -1,4 +1,7 @@
-function History() {
+import {MdOutlineEdit} from 'react-icons/md'
+import {GoTrashcan} from 'react-icons/go'
+
+function MyHouse() {
     return (
         <>
         <h1>Navbar</h1>
@@ -40,10 +43,7 @@ function History() {
                                     <div class="font-semibold text-left">Description</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-left">Amount</div>
-                                </th>
-                                <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-center">Country</div>
+                                    <div class="font-semibold text-center">Action</div>
                                 </th>
                             </tr>
                         </thead>
@@ -65,11 +65,14 @@ function History() {
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-left">Lorem ipsum</div>
                                 </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-green-500">Rp 1.200.000</div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-lg text-center">Idn</div>
+
+                                <td class="p-2 flex justify-between">
+                                    <button class="w-20 bg-yellow-400 hover:bg-orange-500 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                                        <center><MdOutlineEdit size={20}/></center>
+                                    </button>
+                                    <button class="w-20 bg-red-500 hover:bg-red-700 text-gray-800 font-bold py-2 px-4 border border-blue-700 rounded">
+                                        <center><GoTrashcan size={20}/></center>
+                                    </button>
                                 </td>
                             </tr>
                             <tr>
@@ -89,11 +92,13 @@ function History() {
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-left">Ipsum lorem</div>
                                 </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-green-500">Rp 902.387</div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-lg text-center">Idn</div>
+                                <td class="p-2 flex justify-between">
+                                    <button class="w-20 bg-yellow-400 hover:bg-orange-500 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                                        <center><MdOutlineEdit size={20}/></center>
+                                    </button>
+                                    <button class="w-20 bg-red-500 hover:bg-red-700 text-gray-800 font-bold py-2 px-4 border border-blue-700 rounded">
+                                        <center><GoTrashcan size={20}/></center>
+                                    </button>
                                 </td>
                             </tr>
                             <tr>
@@ -113,11 +118,13 @@ function History() {
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-left">Simply dummy</div>
                                 </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-green-500">Rp 274.287</div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-lg text-center">Idn</div>
+                                <td class="p-2 flex justify-between">
+                                    <button class="w-20 bg-yellow-400 hover:bg-orange-500 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                                        <center><MdOutlineEdit size={20}/></center>
+                                    </button>
+                                    <button class="w-20 bg-red-500 hover:bg-red-700 text-gray-800 font-bold py-2 px-4 border border-blue-700 rounded">
+                                        <center><GoTrashcan size={20}/></center>
+                                    </button>
                                 </td>
                             </tr>
                             <tr>
@@ -137,11 +144,13 @@ function History() {
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-left">Dummy simply</div>
                                 </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-green-500">Rp 786.293</div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-lg text-center">Idn</div>
+                                <td class="p-2 flex justify-between">
+                                    <button class="w-20 bg-yellow-400 hover:bg-orange-500 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                                        <center><MdOutlineEdit size={20}/></center>
+                                    </button>
+                                    <button class="w-20 bg-red-500 hover:bg-red-700 text-gray-800 font-bold py-2 px-4 border border-blue-700 rounded">
+                                        <center><GoTrashcan size={20}/></center>
+                                    </button>
                                 </td>
                             </tr>
                             <tr>
@@ -161,11 +170,13 @@ function History() {
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-left">typesetting industry</div>
                                 </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-green-500">Rp 654.976</div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-lg text-center">Idn</div>
+                                <td class="p-2 flex justify-between">
+                                    <button class="w-20 bg-yellow-400 hover:bg-orange-500 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                                        <center><MdOutlineEdit size={20}/></center>
+                                    </button>
+                                    <button class="w-20 bg-red-500 hover:bg-red-700 text-gray-800 font-bold py-2 px-4 border border-blue-700 rounded">
+                                        <center><GoTrashcan size={20}/></center>
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -185,4 +196,4 @@ function History() {
     )
 }
 
-export default History
+export default MyHouse
