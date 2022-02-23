@@ -2,11 +2,12 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Homepage from "../pages/component/homePage";
+import Profile from "../pages/profile";
 
 export default function Home() {
   return (
     <div>
-      <Homepage />
+      {/* <Homepage />
       <div class="flex space-x-2 justify-center">
         <button
           type="button"
@@ -14,7 +15,8 @@ export default function Home() {
         >
           Button
         </button>
-      </div>
+      </div> */}
+      <Profile />
     </div>
   );
 }
