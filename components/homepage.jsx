@@ -17,7 +17,7 @@ function homepage() {
         <div className="grid justify-center mb-10">
           <button
             type="button"
-            className=" mt-3 drop-shadow-lg inline-block mr-10 px-6 py-2.5 bg-orange-600 text-white font-medium text-sm leading-tight  rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            className=" mt-3 drop-shadow-lg inline-block mr-10 px-6 py-2.5 bg-orange-600 text-white font-medium text-sm leading-tight  rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg  transition duration-150 ease-in-out"
           >
             Get Inspired
           </button>

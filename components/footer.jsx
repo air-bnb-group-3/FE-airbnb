@@ -11,7 +11,7 @@ import {
 function footer() {
   return (
     <>
-      <div className="flex justify-between bg-white drop-shadow-md  h-[70px] mt-10">
+      <div className="flex justify-between bg-white drop-shadow-md  h-[70px]">
         <div className="flex py-5 px-[60px]">
           <Image src={footerimg} width="100px" height="30px" />
           <p className="px-10 pt-2 text-sm">
