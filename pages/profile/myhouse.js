@@ -7,7 +7,7 @@ function MyHouse() {
         <h1>Navbar</h1>
         <div className="h-screen pt-20 bg-gray-100">
             <div className="container mx-auto ">
-                <h1 class="text-center">History Payment</h1>
+                <h1 class="text-center">My House</h1>
             </div>
             <div className="max-w-6xl mx-5 pt-20 xl:mx-auto">  
                 <div className="grid grid-cols-2 gap-2 shadow-lg">
