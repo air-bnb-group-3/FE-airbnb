@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import navimg from "../assets/Group 14.png";
+import Link from "next/link";
 
 function Navbar() {
   return (
@@ -11,13 +12,17 @@ function Navbar() {
             <Image src={navimg} width="140px" height="40px" />
           </div>
           <div className="flex items-center text-[15px] mt-2">
-            <p className="font-semibold px-[60px] hover:text-orange-600 cursor-pointer">
-              Home
-            </p>
-            <p className="font-semibold pr-[60px] hover:text-orange-600 cursor-pointer">
-              {" "}
-              Nearby
-            </p>
+            <Link href="/">
+              <p className="font-semibold px-[60px] hover:text-orange-600 cursor-pointer">
+                Home
+              </p>
+            </Link>
+            <Link href="/nearbypage">
+              <p className="font-semibold pr-[60px] hover:text-orange-600 cursor-pointer">
+                {" "}
+                Nearby
+              </p>
+            </Link>
             <p className="font-semibold hover:text-orange-600 cursor-pointer">
               {" "}
               Contact Us
@@ -29,7 +34,7 @@ function Navbar() {
                 <input
                   type="search"
                   className="form-control relative flex-auto min-w-0 block w-full px-3 py-1  font-medium text-xs text-white bg-orange-600 bg-clip-padding border border-solid border-gray-300 rounded-lg transition ease-in-out m-0 focus:text-white focus:bg-orange-600 focus:border-white focus:outline-none "
-                  placeholder=""
+                  placeholder="search"
                   aria-label="Search"
                   aria-describedby="button-addon2"
                 />
