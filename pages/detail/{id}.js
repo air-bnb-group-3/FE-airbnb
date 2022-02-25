@@ -34,6 +34,14 @@ function DetailRoom() {
     const {id} = router.query
 
     useEffect(() => {
+        setloading(true);
+    
+        setTimeout(() => {
+          setloading(false);
+        }, 1000);
+      }, []);
+
+    useEffect(() => {
         const token = localStorage.getItem("token")
         const config = {
             headers: {Authorization: `Bearer ${token}`},
@@ -93,6 +101,14 @@ function DetailRoom() {
         // setPrice(price)
         return price
     }
+    if (loading) {
+        return (
+            <button type="button" class="bg-indigo-500 ..." disabled>
+            <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+            </svg>
+            Processing...
+          </button>
+        );
 
 
     return (
