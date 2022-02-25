@@ -6,114 +6,149 @@ import Image2 from '../../assets/bloom-man-giving-online-support-via-laptop.png'
 import Image3 from '../../assets/bloom-woman-with-sprayer-and-detergents-cleaning-up.png'
 import Image4 from '../../assets/bloom-woman-leads-webinar-on-computer-via-online.png'
 import Image from 'next/image' 
+import Room1 from '../../assets/room1.png'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker-cssmodules.css'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import axios from 'axios';
+
 
 function DetailRoom() {
+    const [token, setToken] = useState("")
+    const [rooms, setRooms] = useState([])
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+    const days = sumDay()
+    const price = sumPrice()
+    const [priceFormat, setPriceFormat] = useState()
+
+
+    const router = useRouter()
+    const {id} = 1
+
+    useEffect(() => {
+        // const token = localStorage.getItem("token")
+        // const config = {
+        //     headers: {Authorization: `Bearer ${token}`},
+        // }
+        axios
+        .get('http://18.136.193.63:8081/rooms/1')
+        .then (({data}) => {
+            setRooms(data.data)
+            setPriceFormat(data.data.price)
+        })
+        .catch((err) =>{
+            console.log(err, "error");
+        })
+    }, [])
+
+    function addToCartHandler(){
+        const body={
+            
+        }
+        // const token = localStorage.getItem("token")
+        // const config = {
+        //     headers: {Authorization: `Bearer ${token}`},
+        // }
+        axios
+        .post('http://18.140.1.124:8081/booking/me', body, config)
+        .then (({data})=>{
+            console.log(data);
+            setStatus(true)
+            setMsg(data.message)
+            setVariant('success')    
+        })
+        .catch((err)=>{
+            if(product.qty<0){
+                setMsg(data.message)
+                setVariant('danger')
+            }
+        })
+    }
+  
+
+    function sumDay(){
+        const difTime = endDate.getTime() - startDate.getTime()
+        const days = Math.round(difTime / (1000 * 60 * 60 * 24))
+        const price = days * rooms.price
+        if(endDate.getTime() || startDate.getTime() === null){
+           
+        }
+        // setDays(days)
+        return days
+    }
+    
+    function sumPrice(){
+        const days = sumDay()
+
+
+        const price = days * 150000
+        // setPrice(price)
+        return price
+    }
+
+
     return (
         <>
             <h1>Navbar</h1>
             <div className="h-vh pt-20 bg-gray-100">
-                <div className="container mx-auto ">
+                <div className="container mx-auto">
                     {/* Room name */}
                     <div className="roomName mb-5">
-                        <h1 className="font-bold">Ameris hills</h1>
+                        <h1 className="text-2xl sm:text-4xl font-bold">{rooms.name} <span className="text-lg">{rooms.address}</span></h1>
                     </div>
                     {/* Category */}
                     <div className="category flex ">
-                        <div className="bg-teal-300 p-3 rounded mr-5">
-                            Solo traveling
-                        </div>
-                        <div className="bg-teal-300 p-3 rounded mr-5">
-                            Couple
-                        </div>
-                        <div className="bg-teal-300 p-3 rounded mr-5">
-                            Tourist
-                        </div>
-                        <div className="bg-teal-300 p-3 rounded mr-5">
-                            City center
-                        </div>
+                        <div className="bg-teal-300 p-3 rounded mr-5">Solo traveling</div>
+                        <div className="bg-teal-300 p-3 rounded mr-5">Couple</div>
+                        <div className="bg-teal-300 p-3 rounded mr-5">Tourist</div>
+                        <div className="bg-teal-300 p-3 rounded mr-5">City center</div>
                     </div>
                     {/* Preview image */}
-                    <div className="previewImage flex">
-                        <img
-                            className="
-                            rounded 
-                            block
-                            pt-14"                          
-                            src="https://www.gannett-cdn.com/-mm-/c6ce345dd3cc67c30388965835e2347ef87cfcc7/c=0-366-2700-1885/local/-/media/2020/03/03/USATODAY/usatsports/MotleyFool-TMOT-b9d6657b-hotel-room.jpg?width=2700&height=1519&fit=crop&format=pjpg&auto=webp"
-                            width={726}
-                                                    />
-                        <div className="flex flex-col ml-14">
-                                <img
-                                    className="
-                                    rounded 
-                                    block
-                                    pt-14
-                                    w-80"                          
-                                    src="http://cdn.cnn.com/cnnnext/dam/assets/140127103345-peninsula-shanghai-deluxe-mock-up.jpg"
-                                />
-                                 <img
-                                    className="
-                                    rounded 
-                                    block
-                                    pt-14
-                                    w-80"                          
-                                    src="https://i.pinimg.com/originals/45/a2/60/45a260724f7ebf164b893eed1128d38d.jpg"
-                                />
-                        </div>
-                        <div className="flex flex-col ml-8">
-                                <img
-                                    className="
-                                    rounded 
-                                    block
-                                    pt-14
-                                    w-80"                          
-                                    src="http://cdn.cnn.com/cnnnext/dam/assets/140127103345-peninsula-shanghai-deluxe-mock-up.jpg"
-                                />
-                                 <img
-                                    className="
-                                    rounded 
-                                    block
-                                    pt-14
-                                    w-80"                          
-                                    src="https://i.pinimg.com/originals/45/a2/60/45a260724f7ebf164b893eed1128d38d.jpg"
-                                />
-                        </div>
+                    <div className="relative h-[300px] sm:h-[500px] lg:h[500px] xl:h[600px] 2xl:h[700px] mt-10">
+                    <Image
+                            src={Room1}
+                            layout="fill"
+                            objectFit="cover"
+                        />
                     </div>
                     {/* Detail room */}
-                    <div className="mainCouse mt-20">
-                        <h1 className="font-bold mb-5">Detail's</h1>
+                    <div className="mainCouse mt-10">
+                        <h1 className="font-bold mb-5 text-2xl sm:text-4xl grid justify-items-center">Detail's</h1>
                         {/* Fiture */}
-                        <div className="flex">
+                        <div className="flex justify-center">
                             <div className="flex flex-col bg-neutral-200 p-5 rounded mr-5">
                                 <MdPeopleAlt 
                                     size={30}
                                 />
-                                <h1 className="mt-5">2 Poeple</h1>
+                                <h1 className="mt-5">{rooms.total_person} People</h1>
                             </div>
                             <div className="flex flex-col bg-neutral-200 p-5 rounded mr-5">
                                 <BiDoorOpen 
                                     size={30}
                                 />
-                                <h1 className="mt-5">1 Bathroom</h1>
+                                <h1 className="mt-5">{rooms.total_rooms} Bathroom</h1>
                             </div>
                             <div className="flex flex-col bg-neutral-200 p-5 rounded mr-5">
                                 <MdOutlineKingBed 
                                     size={30}
                                 />
-                                <h1 className="mt-5">1 Queen bed</h1>
+                                <h1 className="mt-5">{rooms.size_bed} bed</h1>
                             </div>
                         </div>
                         {/* Description  */}
                         <div className="description mt-10">
-                            <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            <p className="font-semibold">
+                                {rooms.description}
                             </p>
                         </div>
                         {/* DLC */}
-                        <h1 className="font-bold mt-20 mb-5">Room Ameris Hills</h1>
-                        <div className="flex">
-                            <div className="flex flex-col border">
-                                <div className="flex bg-emerald-100 p-7 rounded mr-5 w-full">
+                        <h1 className="font-bold mt-20 mb-5 text-3xl">Room {rooms.name}</h1>
+                        <div className="flex mx-auto">
+                            <div className="flex flex-col mx-auto">
+                                <div className="flex bg-emerald-100 p-7 rounded mr-5 w-96 mx-auto">
                                     <Image 
                                         src={Image1}
                                         width={100}
@@ -124,7 +159,7 @@ function DetailRoom() {
                                     <h1 className="text-emerald-600 pt-3 font-semibold">Electronic Check-in <br/>and Check out</h1>
                                     </div>    
                                 </div>
-                                <div className="flex bg-gray-200 p-7 rounded mr-5 mt-5 w-full">
+                                <div className="flex bg-gray-200 p-7 rounded mr-5 mt-5 w-96">
                                     <Image 
                                         src={Image2}
                                         width={100}
@@ -136,8 +171,8 @@ function DetailRoom() {
                                     </div>    
                                 </div>
                             </div>
-                            <div className="flex flex-col ml-10">
-                                <div className="flex bg-gray-200 p-7 rounded mr-5 w-full border ">
+                            <div className="flex flex-col ">
+                                <div className="flex bg-gray-200 p-7 rounded mr-5 w-96  ">
                                     <Image 
                                         src={Image3}
                                         width={100}
@@ -148,7 +183,7 @@ function DetailRoom() {
                                     <h1 className="text-black-600 pt-3 font-semibold">Free housekeeping <br/>Services</h1>
                                     </div>    
                                 </div>
-                                <div className="flex bg-gray-200 p-7 rounded mr-5 mt-5 w-full">
+                                <div className="flex bg-gray-200 p-7 rounded mr-5 mt-5 w-96">
                                     <Image 
                                         src={Image4}
                                         width={100}
@@ -160,19 +195,64 @@ function DetailRoom() {
                                     </div>    
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    {/* Time check in */}
-                    <div className="timeCheck flex mt-10">
-                        <div className="flex">
-                            <div className="border border-gray-400 rounded mx-auto flex flex-col">
-                                <h1 className="mt-5 ml-5">Check-In Time</h1>
-                                <h1 className="mt-4 ml-5">2PM</h1>
+                            <div className="bg-gray-200 p-7 rounded mr-5 w-full mx-auto">
+                                <div className="font-semibold text-3xl text-center">Rp {priceFormat}<span className="text-sm font-semibold">/ night</span></div>
+                                <hr className=" border-gray-300 mt-3" />
+                                    <div className="flex justify-around mt-5">
+                                        <div className="flex flex-col">
+                                            <h1 className="font-semibold mb-2">start check in</h1>
+                                        <DatePicker 
+                                            selected={startDate}
+                                            onChange={date => setStartDate(date)}
+                                            dateFormat="dd/MM/yyyy"
+                                            minDate={new Date()}
+                                            showYearDropdown
+                                            scrollableMonthYearDropdown
+                                            placeholderText="Check in"
+                                        />
+                                        </div>
+                                        <span className="mt-7">to</span>
+                                        <div className="flex flex-col">
+                                            <h1 className="font-semibold mb-2">end check out</h1>
+                                        <DatePicker 
+                                            selected={endDate}
+                                            onChange={date => setEndDate(date)}
+                                            dateFormat="dd/MM/yyyy"
+                                            minDate={endDate}
+                                            showYearDropdown
+                                            scrollableMonthYearDropdown
+                                            placeholderText="Check-out"
+                                        />
+                                        </div>                                        
+                                    </div>
+                                    <div className="flex flex-col mt-10">
+                                        <div className="flex justify-between">
+                                            <span className="font-semibold">Total ( {days} ) hari</span>
+                                            <div className="flex flex-col ml-5">
+                                                <h1 className="font-semibold">Rp {price}<span className="text-2xl"></span></h1>
+                                            </div>
+                                        </div>                                        
+                                         <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-semibold py-2 px-4 rounded mt-12">Book Now</button>                                     
+                                    </div>
                             </div>
-                                
                         </div>
-                        
+                         {/* Time check in */}
+                        <div className="timeCheck flex mt-10 mx-auto">
+                            <div className="border border-gray-400 w-full h-36 rounded mr-5 flex justify-evenly">
+                                <div className="flex flex-col ml-5">
+                                    <h1 className="mt-5 ml-5 font-semibold">Check-In Time</h1>
+                                    <h1 className="mt-4 ml-5 font-semibold">2PM</h1>
+                                    <p className="text-gray-400 text-sm ml-5 mt-1">Early check-in Upon Request</p>
+                                </div>
+                                <div className="flex flex-col mx-auto">
+                                    <h1 className="mt-4 ml-5 font-semibold">Check-Out Time</h1>
+                                    <h1 className="mt-5 ml-5 font-semibold">11PM</h1>
+                                    <p className="text-gray-400 text-sm ml-5 mt-1">Late check-out Upon Request</p>
+                                </div>
+                            </div>                        
+                        </div>
                     </div>
+                   
                 </div>
             </div>
         
