@@ -5,6 +5,7 @@ import Bandung from "../assets/bandung.svg";
 import Jogja from "../assets/jogja.svg";
 import Malang from "../assets/malang.svg";
 import Senyum from "../assets/senyum.svg";
+import Link from "next/link";
 
 function homePageSection3() {
   return (
@@ -13,10 +14,22 @@ function homePageSection3() {
         <p className="font-bold text-3xl">inspiration for your next trip</p>
         <p className="font-light">get your best places around you !</p>
         <div className="flex justify-between py-6 ">
-          <Image src={Malang} />
-          <Image src={Bandung} />
-          <Image src={Bali} />
-          <Image src={Jogja} />
+          <div className="hover:opacity-80 cursor-pointer">
+            <Link href="/nearbypage">
+              <Image src={Malang} />
+            </Link>
+          </div>
+          <div className="hover:opacity-80 cursor-pointer">
+            <Link href="/nearbypageBandung">
+              <Image src={Bandung} />
+            </Link>
+          </div>
+          <div className="hover:opacity-80 cursor-pointer">
+            <Image src={Bali} />
+          </div>
+          <div className="hover:opacity-80 cursor-pointer">
+            <Image src={Jogja} />
+          </div>
         </div>
       </div>
       <div className="grid relative pt-12 mb-[-150px] z-20">
