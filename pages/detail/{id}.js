@@ -13,7 +13,8 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios';
-
+import Navbar from '../../components/navbar'
+import Footer from '../../components/footer'
 
 function DetailRoom() {
     const [token, setToken] = useState("")
@@ -23,18 +24,22 @@ function DetailRoom() {
     const days = sumDay()
     const price = sumPrice()
     const [priceFormat, setPriceFormat] = useState()
+    const [variant, setVariant] = useState('danger');
+    const [msg, setMsg] = useState('');
+    const [show, setShow] = useState(false);
+    const [loading, setloading] = useState(false);
 
 
     const router = useRouter()
-    const {id} = 1
+    const {id} = router.query
 
     useEffect(() => {
-        // const token = localStorage.getItem("token")
-        // const config = {
-        //     headers: {Authorization: `Bearer ${token}`},
-        // }
+        const token = localStorage.getItem("token")
+        const config = {
+            headers: {Authorization: `Bearer ${token}`},
+        }
         axios
-        .get('http://18.136.193.63:8081/rooms/1')
+        .get('http://18.136.193.63:8081/rooms/${id}', config)
         .then (({data}) => {
             setRooms(data.data)
             setPriceFormat(data.data.price)
@@ -48,10 +53,10 @@ function DetailRoom() {
         const body={
             
         }
-        // const token = localStorage.getItem("token")
-        // const config = {
-        //     headers: {Authorization: `Bearer ${token}`},
-        // }
+        const token = localStorage.getItem("token")
+        const config = {
+            headers: {Authorization: `Bearer ${token}`},
+        }
         axios
         .post('http://18.140.1.124:8081/booking/me', body, config)
         .then (({data})=>{
@@ -92,7 +97,7 @@ function DetailRoom() {
 
     return (
         <>
-            <h1>Navbar</h1>
+            <Navbar/>
             <div className="h-vh pt-20 bg-gray-100">
                 <div className="container mx-auto">
                     {/* Room name */}
@@ -237,7 +242,7 @@ function DetailRoom() {
                             </div>
                         </div>
                          {/* Time check in */}
-                        <div className="timeCheck flex mt-10 mx-auto">
+                        <div className="timeCheck flex mt-10 mb-10 mx-auto">
                             <div className="border border-gray-400 w-full h-36 rounded mr-5 flex justify-evenly">
                                 <div className="flex flex-col ml-5">
                                     <h1 className="mt-5 ml-5 font-semibold">Check-In Time</h1>
@@ -254,6 +259,7 @@ function DetailRoom() {
                     </div>
                    
                 </div>
+                <Footer />
             </div>
         
         </>
