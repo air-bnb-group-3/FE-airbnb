@@ -1,31 +1,39 @@
+import Link from "next/link"
+
 function History() {
     return (
         <>
         <h1>Navbar</h1>
         <div className="h-screen pt-20 bg-gray-100">
             <div className="container mx-auto ">
-                <h1 class="text-center">History Payment</h1>
+                <h1 class="text-center font-bold text-2xl">History Payment</h1>
             </div>
-            <div className="max-w-6xl mx-5 pt-20 xl:mx-auto">  
-                <div className="grid grid-cols-2 gap-2 shadow-lg">
-                    <div className="left">
+            <div className="max-w-4xl mx-5 pt-20 xl:mx-auto">  
+                <div className="flex justify-around shadow-lg">
+                    <div className="left mt-10">
                         {/* Menu left */}
                         <div className="container mx-auto px-4 pb-5">
-                            <h1>Account</h1>
-                            <hr className=" border-gray-400 mt-8" />
+                            <Link href="../../profile">
+                                <h1 className="cursor-pointer font-medium">Account</h1>
+                            </Link>
+                            <hr className=" border-gray-400 mt-8 w-40" />
                         </div>
                        
                         <div className="container mx-auto px-4 pb-5">  
-                            <h1>History</h1>
+                            <Link href="../../profile/history">
+                                <h1 className="cursor-pointer font-medium">History</h1>
+                            </Link>
                             <hr className=" border-gray-400 mt-8" />
                         </div>
                         <div className="container mx-auto px-4">
-                            <h1>My House</h1>
+                            <Link href="../../profile/myhouse">
+                                <h1 className="cursor-pointer font-medium">My House</h1>
+                            </Link>
                         </div>
                     </div>
-
+        
                     {/* Main course */}
-                    <div class="flex flex-col justify-center h-full">
+                    <div class="flex flex-col justify-center h-full mt-10 mb-10">
  
                         <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
                             <div class="p-3">
