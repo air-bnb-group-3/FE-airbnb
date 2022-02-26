@@ -33,7 +33,7 @@ function Navbar() {
               <div className="input-group relative flex flex-inherit items-stretch w-full px-[50px] ">
                 <input
                   type="search"
-                  className="form-control relative flex-auto min-w-0 block w-full px-3 py-1  font-medium text-xs text-white bg-orange-600 bg-clip-padding border border-solid border-gray-300 rounded-lg transition ease-in-out m-0 focus:text-white focus:bg-orange-600 focus:border-white focus:outline-none "
+                  className="form-control relative flex-auto min-w-0 block w-full px-3 py-1 placeholder-white font-medium text-xs text-white bg-orange-600 bg-clip-padding border border-solid border-gray-300 rounded-lg transition ease-in-out m-0 focus:text-white focus:bg-orange-600 focus:border-white focus:outline-none "
                   placeholder="search"
                   aria-label="Search"
                   aria-describedby="button-addon2"

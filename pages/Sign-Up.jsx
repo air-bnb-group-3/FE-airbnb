@@ -112,7 +112,7 @@ export default function SignUp() {
                 />
               </div>
               <button
-                className="bg-green-400 font-medium inline-flex items-center px-3 py-1 rounded-md shadow-md text-white transition hover:bg-green-500"
+                className="bg-orange-600 font-medium inline-flex items-center px-3 py-1 rounded-md shadow-md text-white transition hover:bg-green-500"
                 type="submit"
                 onClick={() => validateSignUp()}
               >

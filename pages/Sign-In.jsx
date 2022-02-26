@@ -78,8 +78,8 @@ export default function SignIn() {
                   <FiMail />
                 </span>
                 <input
-                  className="border border-gray-300 outline-none placeholder-gray-400 pl-9 pr-4 py-1 rounded-md transition focus:ring-2 focus:ring-green-300"
-                  placeholder="Email..."
+                  className="border border-gray-300 outline-none placeholder-gray-400 pl-9 pr-4 py-1 rounded-md transition focus:ring-2 focus:ring-orange-300"
+                  placeholder="  isi Email kamu yaa "
                   type="text"
                   onChange={(e) => setEmailInput(e.target.value)}
                 />
@@ -89,14 +89,14 @@ export default function SignIn() {
                   <FaLock />
                 </span>
                 <input
-                  className="border border-gray-300 outline-none placeholder-gray-400 pl-9 pr-4 py-1 rounded-md transition focus:ring-2 focus:ring-green-300"
-                  placeholder="Kata Sandi..."
+                  className="border border-gray-300 outline-none placeholder-gray-400 pl-9 pr-4 py-1 rounded-md transition focus:ring-2 focus:ring-orange-300"
+                  placeholder="masukkan sandi kamuu"
                   type="password"
                   onChange={(e) => setPasswordInput(e.target.value)}
                 />
               </div>
               <button
-                className="bg-green-400 font-medium inline-flex items-center px-3 py-1 rounded-md shadow-md text-white transition hover:bg-green-500"
+                className="bg-orange-400 font-medium inline-flex items-center px-3 py-1 rounded-md shadow-md text-white transition hover:bg-green-500"
                 type="submit"
                 onClick={() => validateLogin()}
               >
@@ -106,11 +106,11 @@ export default function SignIn() {
             </form>
 
             {/* link */}
-            <div className="flex flex-col items-center">
-              <p className="italic">
+            <div className="flex pt-10 justify-end">
+              <p className="text-sm ">
                 Belum punya akun?
                 <NextLink href="/Sign-Up">
-                  <a className="ml-1 text-green-500 hover:underline">
+                  <a className="ml-1 text-sm text-orange-500 hover:underline">
                     Daftar di sini
                   </a>
                 </NextLink>
