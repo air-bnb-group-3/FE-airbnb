@@ -1,4 +1,8 @@
 import React from "react";
+import { useEffect } from "react";
+// import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import allStore from "../store/actions/index";
 import Image from "next/image";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
@@ -6,8 +10,22 @@ import Kamar1 from "../assets/kamar 1.svg";
 import Kamar2 from "../assets/kamar 2.svg";
 import Kamar3 from "../assets/kamar 3.svg";
 import Maps from "../assets/maps.svg";
+import { useRouter } from "next/router";
+
+const baseUrl = "http://18.136.193.63:8081/rooms";
 
 function nearbypage() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const dataRooms = useSelector((data) => data.detailRooms.listAllRooms);
+
+  // const getToken =
+  //   typeof window !== "undefined " ? localStorage.getItem("token") : null;
+
+  useEffect(() => {
+    dispatch(allStore.getAllRooms());
+  }, [dispatch]);
+
   return (
     <div>
       <Navbar />
@@ -27,19 +45,19 @@ function nearbypage() {
                 type="button"
                 className=" mt-3 drop-shadow-lg inline-block  mr-3 px-4 py-1.5 bg-orange-600 text-white font-medium text-xs leading-tight  rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg  transition duration-150 ease-in-out"
               >
-                Pool
+                Person
               </button>
               <button
                 type="button"
                 className=" mt-3 drop-shadow-lg inline-block mr-3  px-4 py-1.5 bg-orange-600 text-white font-medium text-xs leading-tight  rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg  transition duration-150 ease-in-out"
               >
-                wifi
+                Rooms
               </button>
               <button
                 type="button"
                 className=" mt-3 drop-shadow-lg inline-block mr-3  px-4 py-1.5 bg-orange-600 text-white font-medium text-xs leading-tight  rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg  transition duration-150 ease-in-out"
               >
-                2 Bed
+                Bed
               </button>
               <div className=" bg-white border-black solid mt-5 mb-5 ">
                 <div className="py-2 px-2 flex justify-start">
@@ -63,26 +81,44 @@ function nearbypage() {
                   </div>
                 </div>
               </div>
-              <div className=" bg-white border-black solid mt-5 mb-5 ">
-                <div className="py-2 px-2 flex justify-start">
-                  <Image src={Kamar1} />
-                  <div className="px-5">
-                    <p className="text-xs font-light">entire Hotel in malang</p>
-                    <p className="font-bold">Hotel MAntapp Kang Ade, Hotel</p>
-                    <p className="font-light text">
-                      2 Guest. 2 Beds. 1 Private Bath
-                    </p>
-                    <p className="font-light mb-7">Wifi. Pool. Kitchen</p>
-                    <div className="flex justify-between">
-                      <p className="font-light pr-[180px]"> 4.8 (990 Review)</p>
-                      <p className="font-bold text-orange-600">
-                        {" "}
-                        Rp. 265.000/Night
+              {dataRooms.map((el, i) => (
+                <div className=" bg-white border-black solid mt-5 mb-5 ">
+                  <div className="py-2 px-2 flex justify-start">
+                    <Image
+                      src={Kamar1}
+                      key={i}
+                      onClick={() => {
+                        router.push(`/detail/${i}`);
+                      }}
+                    />
+                    <div className="px-5">
+                      <p className="text-xs font-light">
+                        entire Hotel in {el.category_id}
                       </p>
+                      <p className="font-bold">
+                        Hotel MAntapp Kang Ade, Hotel {el.name}
+                      </p>
+                      <p className="font-light text">
+                        2 Guest. 2 Beds. 1 Private Bath {el.description}
+                      </p>
+                      <p className="font-light mb-7">
+                        Wifi.{el.total_person} Pool.{el.total_rooms} Kitchen
+                        {el.size_bed}
+                      </p>
+                      <div className="flex justify-between">
+                        <p className="font-light pr-[180px]">
+                          {" "}
+                          4.8 (990 Review)
+                        </p>
+                        <p className="font-bold text-orange-600">
+                          {" "}
+                          Rp. 265.000/Night {el.price}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              ))}
               <div className=" bg-white border-black solid mt-5 mb-5 ">
                 <div className="py-2 px-2 flex justify-start">
                   <Image src={Kamar2} />

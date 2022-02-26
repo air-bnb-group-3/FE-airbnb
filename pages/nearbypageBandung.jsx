@@ -27,19 +27,19 @@ function nearbypage() {
                 type="button"
                 className=" mt-3 drop-shadow-lg inline-block  mr-3 px-4 py-1.5 bg-orange-600 text-white font-medium text-xs leading-tight  rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg  transition duration-150 ease-in-out"
               >
-                Pool
+                Person
               </button>
               <button
                 type="button"
                 className=" mt-3 drop-shadow-lg inline-block mr-3  px-4 py-1.5 bg-orange-600 text-white font-medium text-xs leading-tight  rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg  transition duration-150 ease-in-out"
               >
-                wifi
+                Rooms
               </button>
               <button
                 type="button"
                 className=" mt-3 drop-shadow-lg inline-block mr-3  px-4 py-1.5 bg-orange-600 text-white font-medium text-xs leading-tight  rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg  transition duration-150 ease-in-out"
               >
-                2 Bed
+                Price
               </button>
               <div className=" bg-white border-black solid mt-5 mb-5 ">
                 <div className="py-2 px-2 flex justify-start">
