@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 
 
 function Profile() {
@@ -12,7 +14,7 @@ function Profile() {
     const [password, setPassword] = useState("");
 
     useEffect(() => {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDU5MzQxODMsImlkIjo4LCJyb2xlcyI6dHJ1ZX0.Rkm8oBdgO4X4PloLhF1kUmO6hXTDShMjTSMAe1eZdiI"
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjA3OTIsImlkIjozMCwicm9sZXMiOmZhbHNlfQ.rjug6ljhztL-9M6C3xYA5gizJoKrNgOGSSP_NeoPdiI"
         const config = {
             headers: {Authorization: `Bearer ${token}`},
         }
@@ -27,13 +29,9 @@ function Profile() {
         })
     }, [])
 
-    function reBack(){
-        router.push('/')
-    }
-
     return (
         <>
-        <h1>Navbar</h1>
+        <Navbar />
         <div className="h-screen pt-20 bg-gray-100">
             <div className="container mx-auto ">
                 <h1 class="text-center font-bold text-2xl">Account Setting</h1>
@@ -78,7 +76,8 @@ function Profile() {
                                     text-base
                                     font-normal
                                     text-gray-700
-                                    bg-white bg-clip-padding
+                                    bg-gray-200 
+                                    bg-clip-padding
                                     border border-solid border-gray-300
                                     rounded
                                     transition
@@ -87,13 +86,14 @@ function Profile() {
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                 "
                                 id="exampleFormControlInput1"
-                                placeholder={profile.name}    
+                                value={profile.name}    
+                                disabled
                                 onChange={(e) => setUser(e.target.value)}                        
                             />
                         </div>
                         <div class="mb-3 xl:w-96 pb-3">
                             <label for="examplePassword0" class="form-label inline-block mb-2 text-gray-700"
-                                >Password input</label
+                                >Password</label
                                 >
                                 <input
                                 type="password"
@@ -106,7 +106,8 @@ function Profile() {
                                     text-base
                                     font-normal
                                     text-gray-700
-                                    bg-white bg-clip-padding
+                                    bg-gray-200 
+                                    bg-clip-padding
                                     border border-solid border-gray-300
                                     rounded
                                     transition
@@ -114,8 +115,8 @@ function Profile() {
                                     m-0
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                 "
-                                id="examplePassword0"
-                                placeholder="***********"
+                                disabled
+                                placeholder="*********"
                             />
                         </div>
                         <div class="mb-3 xl:w-96">
@@ -133,7 +134,8 @@ function Profile() {
                                     text-base
                                     font-normal
                                     text-gray-700
-                                    bg-white bg-clip-padding
+                                    bg-gray-200
+                                    bg-clip-padding
                                     border border-solid border-gray-300
                                     rounded
                                     transition
@@ -142,7 +144,8 @@ function Profile() {
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                 "
                                 id="exampleEmail0"
-                                placeholder="User1@mail.com"
+                                disabled
+                                value={profile.email}
                             />
                         </div>
 
@@ -151,12 +154,11 @@ function Profile() {
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
                         </div>
                         <div className="buttonAction flex justify-between pb-5">
-                            <button class="w-40 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" reBack>
-                            Back
-                            </button>
-                            <button class="w-40 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                                Save
-                            </button>                         
+                            <Link href="/profile/editUser">
+                                <button class="w-96 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                                    Change Data
+                                </button>
+                            </Link>                         
                         </div>
                     </div>
                     
@@ -166,19 +168,13 @@ function Profile() {
                             src="https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png"
                             width={137}
                             height={129}
-                        />
-                        <div className="buttonUpload pt-5">
-                            <button class="w-23 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                                Upload Picture
-                            </button>
-                        </div>
-                         
+                        />                        
                     </div>
                 </div>                
                
             </div>
         </div>
-           
+        <Footer />   
         </>
     )
 }

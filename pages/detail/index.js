@@ -42,12 +42,12 @@ function DetailRoom() {
       }, []);
 
     useEffect(() => {
-        const token = localStorage.getItem("token")
-        const config = {
-            headers: {Authorization: `Bearer ${token}`},
-        }
+        // const token = localStorage.getItem("token")
+        // const config = {
+        //     headers: {Authorization: `Bearer ${token}`},
+        // }
         axios
-        .get('http://18.136.193.63:8081/rooms/${id}', config)
+        .get('http://18.136.193.63:8081/rooms/1')
         .then (({data}) => {
             setRooms(data.data)
             setPriceFormat(data.data.price)
@@ -109,7 +109,7 @@ function DetailRoom() {
             Processing...
           </button>
         );
-
+        }
 
     return (
         <>

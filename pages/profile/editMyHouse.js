@@ -1,3 +1,5 @@
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 import Link from "next/link"
 import { useRouter } from 'next/router';
 
@@ -9,7 +11,7 @@ function EditMyHouse() {
     }
     return (
         <>
-        <h1>Navbar</h1>
+        <Navbar />
         <div className="h-auto pt-20 bg-gray-100">
             <div className="container mx-auto ">
                 <h1 class="text-center font-bold text-2xl">Edit my house</h1>
@@ -272,7 +274,7 @@ function EditMyHouse() {
                
             </div>
         </div>
-           
+           <Footer/>
         </>
     )
 }
