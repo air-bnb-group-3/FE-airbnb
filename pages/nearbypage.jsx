@@ -9,22 +9,22 @@ import Navbar from "../components/navbar";
 import Kamar1 from "../assets/kamar 1.svg";
 import Kamar2 from "../assets/kamar 2.svg";
 import Kamar3 from "../assets/kamar 3.svg";
-import Maps from "../assets/maps.svg";
+import Maps from "../components/maps";
 import { useRouter } from "next/router";
 
-const baseUrl = "http://18.136.193.63:8081/rooms";
+const baseUrl = "http://18.136.193.63:8081/categories/1";
 
 function nearbypage() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const dataRooms = useSelector((data) => data.detailRooms.listAllRooms);
-
-  // const getToken =
-  //   typeof window !== "undefined " ? localStorage.getItem("token") : null;
+  const dataCategories = useSelector(
+    (data) => data.categoriesDetailReducer.listAllCategories
+  );
 
   useEffect(() => {
-    dispatch(allStore.getAllRooms());
+    dispatch(allStore.getDetailCategories());
   }, [dispatch]);
+  console.log("cek data categories", dataCategories);
 
   return (
     <div>
@@ -33,7 +33,9 @@ function nearbypage() {
         <div className="grid grid-cols-3">
           <div className="col-span-2">
             <div className="pl-[50px] pt-5">
-              <p className="text-2xl font-bold ">Stays in Malang</p>
+              <p className="text-2xl font-bold ">
+                Stays in {dataCategories.city}
+              </p>
               <p className="font-light text-sm pb-2"> 100++ Recomendations</p>
               <button
                 type="button"
@@ -59,117 +61,43 @@ function nearbypage() {
               >
                 Bed
               </button>
-              <div className=" bg-white border-black solid mt-5 mb-5 ">
-                <div className="py-2 px-2 flex justify-start">
-                  <Image src={Kamar3} />
-                  <div className="px-5">
-                    <p className="text-xs font-light">
-                      entire apartment in malang
-                    </p>
-                    <p className="font-bold">Oyo Teh Lini, Apartment</p>
-                    <p className="font-light">
-                      2 Guest. 1 Beds. 1 Private Bath
-                    </p>
-                    <p className="font-light mb-7">Wifi. Pool. Kitchen</p>
-                    <div className="flex justify-between">
-                      <p className="font-light pr-[180px]"> 4.2 (440 Review)</p>
-                      <p className="font-bold text-orange-600">
-                        {" "}
-                        Rp. 235.000/Night
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {dataRooms.map((el, i) => (
-                <div className=" bg-white border-black solid mt-5 mb-5 ">
-                  <div className="py-2 px-2 flex justify-start">
-                    <Image
-                      src={Kamar1}
-                      key={i}
-                      onClick={() => {
-                        router.push(`/detail/${i}`);
-                      }}
-                    />
-                    <div className="px-5">
-                      <p className="text-xs font-light">
-                        entire Hotel in {el.category_id}
-                      </p>
-                      <p className="font-bold">
-                        Hotel MAntapp Kang Ade, Hotel {el.name}
-                      </p>
-                      <p className="font-light text">
-                        2 Guest. 2 Beds. 1 Private Bath {el.description}
-                      </p>
-                      <p className="font-light mb-7">
-                        Wifi.{el.total_person} Pool.{el.total_rooms} Kitchen
-                        {el.size_bed}
-                      </p>
-                      <div className="flex justify-between">
-                        <p className="font-light pr-[180px]">
-                          {" "}
-                          4.8 (990 Review)
-                        </p>
-                        <p className="font-bold text-orange-600">
-                          {" "}
-                          Rp. 265.000/Night {el.price}
-                        </p>
+
+              {dataCategories.Rooms
+                ? dataCategories.Rooms.map((el, i) => (
+                    <div className=" bg-white border-black solid mt-5 mb-5 ">
+                      <div className="py-3 px-2 flex justify-start hover:opacity-70 cursor-pointer">
+                        <Image src={Kamar3} />
+                        <div className="px-5">
+                          <p className="text-xs font-light">{el.description}</p>
+                          <div>
+                            <div />
+                            <p className="font-bold">{el.name}</p>
+                            <p className="font-light font-xs">{el.address}</p>
+                            <p className="font-semibold mb-7 text-[14px] ">
+                              <b>Person:</b> {el.total_person}, <b>Rooms: </b>
+                              {el.total_rooms}, <b>Size Bed:</b> {el.size_bed}
+                            </p>
+                            <div className="flex justify-between">
+                              <p className="font-light pr-[180px]">
+                                {" "}
+                                4.2 (440 Review)
+                              </p>
+                              <p className="font-bold text-orange-600">
+                                {" "}
+                                Rp. {el.price} /Night
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              ))}
-              <div className=" bg-white border-black solid mt-5 mb-5 ">
-                <div className="py-2 px-2 flex justify-start">
-                  <Image src={Kamar2} />
-                  <div className="px-5">
-                    <p className="text-xs font-light">
-                      entire apartment in malang
-                    </p>
-                    <p className="font-bold">Oyo Neng Mirna, Apartment</p>
-                    <p className="font-light">
-                      2 Guest. 2 Beds. 1 Private Bath
-                    </p>
-                    <p className="font-light mb-7">Wifi. Pool. Kitchen</p>
-                    <div className="flex justify-between">
-                      <p className="font-light pr-[180px]"> 5.0 (110 Review)</p>
-                      <p className="font-bold text-orange-600">
-                        {" "}
-                        Rp. 340.000/Night
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className=" bg-white border-black solid mt-5 mb-5 ">
-                <div className="py-2 px-2 flex justify-start">
-                  <Image src={Kamar3} />
-                  <div className="px-5">
-                    <p className="text-xs font-light">
-                      entire apartment in malang
-                    </p>
-                    <p className="font-bold">
-                      Oyo Syariah Kang Sule, Apartment
-                    </p>
-                    <p className="font-light">
-                      2 Guest. 1 Beds. 1 Private Bath
-                    </p>
-                    <p className="font-light mb-7">Wifi. Pool. Kitchen</p>
-                    <div className="flex justify-between">
-                      <p className="font-light pr-[180px]"> 4.0 (340 Review)</p>
-                      <p className="font-bold text-orange-600">
-                        {" "}
-                        Rp. 225.000/Night
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  ))
+                : null}
             </div>
           </div>
 
-          <div className="grid justify-center px-5 pt-[100px]">
-            <Image src={Maps} />
+          <div className="grid pt-2 pl-2">
+            <Maps />
           </div>
         </div>
       </div>
