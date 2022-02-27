@@ -24,7 +24,7 @@ function nearbypage() {
   useEffect(() => {
     dispatch(allStore.getDetailCategories());
   }, [dispatch]);
-  console.log("cek data categories", dataCategories);
+  // console.log("cek data categories", dataCategories);
 
   return (
     <div>
@@ -84,7 +84,7 @@ function nearbypage() {
                               </p>
                               <p className="font-bold text-orange-600">
                                 {" "}
-                                Rp. {el.price} /Night
+                                Rp. {el.price} / Night
                               </p>
                             </div>
                           </div>
