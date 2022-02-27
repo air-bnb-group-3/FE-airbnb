@@ -15,20 +15,24 @@ function homePageSection3() {
         <p className="font-light">get your best places around you !</p>
         <div className="flex justify-between py-6 ">
           <div className="hover:opacity-80 cursor-pointer">
-            <Link href="/nearbypage">
+            <Link href="/nearbypage/2">
               <Image src={Malang} />
             </Link>
           </div>
           <div className="hover:opacity-80 cursor-pointer">
-            <Link href="/nearbypageBandung">
+            <Link href="/nearbypage/1">
               <Image src={Bandung} />
             </Link>
           </div>
           <div className="hover:opacity-80 cursor-pointer">
-            <Image src={Bali} />
+            <Link href="/nearbypage/7">
+              <Image src={Bali} />
+            </Link>
           </div>
           <div className="hover:opacity-80 cursor-pointer">
-            <Image src={Jogja} />
+            <Link href="/nearbypage/6">
+              <Image src={Jogja} />
+            </Link>
           </div>
         </div>
       </div>
