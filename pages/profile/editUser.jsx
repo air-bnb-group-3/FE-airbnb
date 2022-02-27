@@ -36,12 +36,28 @@ function EditUser() {
       password: password,
     };
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjA3OTIsImlkIjozMCwicm9sZXMiOmZhbHNlfQ.rjug6ljhztL-9M6C3xYA5gizJoKrNgOGSSP_NeoPdiI';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjk3NzgsImlkIjozMiwicm9sZXMiOmZhbHNlfQ.fPiKHiHr-kaFwe8eICcLIMudbX4ArhaRerOi8D6-ZNY';
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
     axios
       .put('http://18.136.193.63:8081/users', body, config)
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err, 'error');
+      });
+  }
+
+  function handleDelete() {
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjk3NzgsImlkIjozMiwicm9sZXMiOmZhbHNlfQ.fPiKHiHr-kaFwe8eICcLIMudbX4ArhaRerOi8D6-ZNY';
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    axios
+      .delete('http://18.136.193.63:8081/users', config)
       .then(({ data }) => {
         console.log(data);
       })
@@ -175,7 +191,9 @@ function EditUser() {
               </div>
 
               <div class="mb-3 xl:w-96 pt-10 pb-10">
-                <p class="text-blue-600">Delete Your Account</p>
+                <p class="text-blue-600 cursor-pointer" onClick={handleDelete}>
+                  Delete Your Account
+                </p>
                 <br />
                 <p>
                   Lorem Ipsum is simply dummy text of the printing and
@@ -204,11 +222,6 @@ function EditUser() {
                 width={137}
                 height={129}
               />
-              <div className="buttonUpload pt-5">
-                <button class="w-23 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                  Upload Picture
-                </button>
-              </div>
             </div>
           </div>
         </div>

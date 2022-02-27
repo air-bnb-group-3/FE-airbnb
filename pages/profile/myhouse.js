@@ -2,23 +2,60 @@ import {MdOutlineEdit} from 'react-icons/md'
 import {GoTrashcan} from 'react-icons/go'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
+import axios from 'axios';
+import { useState, useEffect } from "react";
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 function MyHouse() {
     const router = useRouter();
+    const [house, setHouse] = useState([]);
+    const [roomName, setRoomName] = useState("");
+    const [description, setDescription] = useState("");
+    
 
+   
 
-    function reEdit(){
-        router.push('/profile/editMyHouse')
-    }
+    useEffect(() => {
+    const token =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjA3OTIsImlkIjozMCwicm9sZXMiOmZhbHNlfQ.rjug6ljhztL-9M6C3xYA5gizJoKrNgOGSSP_NeoPdiI';
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    axios
+      .get('http://18.136.193.63:8081/rooms/all', config)
+      .then(({ data }) => {
+        setHouse(data.data);
+        console.log(data.data);
+      })
+      .catch((err) => {
+        console.log(err, 'error');
+      });
+    }, []);
+
+    function handleDelete() {
+        const token =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjA3OTIsImlkIjozMCwicm9sZXMiOmZhbHNlfQ.rjug6ljhztL-9M6C3xYA5gizJoKrNgOGSSP_NeoPdiI';
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+        axios
+          .delete('http://18.136.193.63:8081/rooms', config)
+          .then(({ data }) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.log(err, 'error');
+          });
+      }
+
     return (
         <>
         <Navbar />
-        <div className="h-screen pt-20 bg-gray-100">
+        <div className="h-vh pt-20 bg-gray-100">
             <div className="container mx-auto ">
                 <h1 class="text-center font-bold text-2xl">My House</h1>
             </div>
-            <div className="max-w-4xl mx-5 pt-20 xl:mx-auto">  
+            <div className="max-w-4xl mx-5 pt-5 xl:mx-auto mb-10">  
                 <div className="flex justify-around shadow-lg">
                     <div className="left mt-10">
                         {/* Menu left */}
@@ -43,10 +80,13 @@ function MyHouse() {
                     </div>
 
                     {/* Main course */}
+                    
                     <div class="flex flex-col justify-center h-full pt-10 pb-10">
+                        {house.map((el, i) => (
                         <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
                             <div class="p-3">
                                 <div class="overflow-x-auto">
+                                    
                                     <table class="table-auto w-full">
                                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                                             <tr>
@@ -66,129 +106,27 @@ function MyHouse() {
                                                 <td class="p-2 whitespace-nowrap">
                                                     <div class="flex items-center">
                                                         <div class="w-13 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                                                            <img 
+                                                            {/* <img 
                                                             class="rounded-full" 
-                                                            src="https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHw%3D&w=1000&q=80" 
-                                                            width="60"
-                                                            height="100" 
-                                                            />
+                                                            src={el.image} 
+                                                            width="160"
+                                                            height="50" 
+                                                            /> */}
                                                         </div>
-                                                        <div class="font-medium text-gray-800">Waifumu mas</div>
+                                                        <div class="font-medium text-gray-800">{el.name}</div>
                                                     </div>
                                                 </td>
                                                 <td class="p-2 whitespace-nowrap">
-                                                    <div class="text-left">Lorem ipsum</div>
+                                                    <div class="text-left">{el.description}</div>
                                                 </td>
 
-                                                <td class="p-2 flex justify-between">
-                                                    <button class="w-20 bg-yellow-400 hover:bg-orange-500 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onClick={reEdit}>
-                                                        <center><MdOutlineEdit size={20}/></center>
-                                                    </button>
-                                                    <button class="w-20 bg-red-500 hover:bg-red-700 text-gray-800 font-bold py-2 px-4 border border-blue-700 rounded">
-                                                        <center><GoTrashcan size={20}/></center>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-2 whitespace-nowrap">
-                                                    <div class="flex items-center">
-                                                        <div class="w-13 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                                                            <img 
-                                                                class="rounded-full" 
-                                                                src="https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHw%3D&w=1000&q=80" 
-                                                                width="60" 
-                                                                height="100" 
-                                                            />
-                                                        </div>
-                                                        <div class="font-medium text-gray-800">Paha for life</div>
-                                                    </div>
-                                                </td>
-                                                <td class="p-2 whitespace-nowrap">
-                                                    <div class="text-left">Ipsum lorem</div>
-                                                </td>
-                                                <td class="p-2 flex justify-between">
-                                                    <button class="w-20 bg-yellow-400 hover:bg-orange-500 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onClick={reEdit}>
-                                                        <center><MdOutlineEdit size={20}/></center>
-                                                    </button>
-                                                    <button class="w-20 bg-red-500 hover:bg-red-700 text-gray-800 font-bold py-2 px-4 border border-blue-700 rounded">
-                                                        <center><GoTrashcan size={20}/></center>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-2 whitespace-nowrap">
-                                                    <div class="flex items-center">
-                                                        <div class="w-13 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                                                            <img 
-                                                                class="rounded-full" 
-                                                                src="https://upload.wikimedia.org/wikipedia/commons/4/40/Living_Room.jpg" 
-                                                                width="60" 
-                                                                height="100" 
-                                                            />
-                                                        </div>
-                                                        <div class="font-medium text-gray-800">House of Wibu</div>
-                                                    </div>
-                                                </td>
-                                                <td class="p-2 whitespace-nowrap">
-                                                    <div class="text-left">Simply dummy</div>
-                                                </td>
-                                                <td class="p-2 flex justify-between">
-                                                    <button class="w-20 bg-yellow-400 hover:bg-orange-500 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onClick={reEdit}>
-                                                        <center><MdOutlineEdit size={20}/></center>
-                                                    </button>
-                                                    <button class="w-20 bg-red-500 hover:bg-red-700 text-gray-800 font-bold py-2 px-4 border border-blue-700 rounded">
-                                                        <center><GoTrashcan size={20}/></center>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-2 whitespace-nowrap">
-                                                    <div class="flex items-center">
-                                                        <div class="w-13 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                                                            <img 
-                                                                class="rounded-full" 
-                                                                src="https://i.pinimg.com/originals/2b/8f/b4/2b8fb47cc84f5af2ee797bd3d98512c1.jpg" 
-                                                                width="60"
-                                                                height="100" 
-                                                            />
-                                                            </div>
-                                                        <div class="font-medium text-gray-800">Best cosu</div>
-                                                    </div>
-                                                </td>
-                                                <td class="p-2 whitespace-nowrap">
-                                                    <div class="text-left">Dummy simply</div>
-                                                </td>
-                                                <td class="p-2 flex justify-between">
-                                                    <button class="w-20 bg-yellow-400 hover:bg-orange-500 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onClick={reEdit}>
-                                                        <center><MdOutlineEdit size={20}/></center>
-                                                    </button>
-                                                    <button class="w-20 bg-red-500 hover:bg-red-700 text-gray-800 font-bold py-2 px-4 border border-blue-700 rounded">
-                                                        <center><GoTrashcan size={20}/></center>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-2 whitespace-nowrap">
-                                                    <div class="flex items-center">
-                                                        <div class="w-13 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                                                            <img 
-                                                            class="rounded-full" 
-                                                            src="https://phri.d-hots.com/images/hotels/df5ae828b0d2f5a4b92f62808348a2be-20210810110803.jpg" 
-                                                            width="60" 
-                                                            height="100" 
-                                                            />
-                                                        </div>
-                                                        <div class="font-medium text-gray-800">Fansmu mas</div>
-                                                    </div>
-                                                </td>
-                                                <td class="p-2 whitespace-nowrap">
-                                                    <div class="text-left">typesetting industry</div>
-                                                </td>
-                                                <td class="p-2 flex justify-between">
-                                                    <button class="w-20 bg-yellow-400 hover:bg-orange-500 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onClick={reEdit}>
-                                                        <center><MdOutlineEdit size={20}/></center>
-                                                    </button>
-                                                    <button class="w-20 bg-red-500 hover:bg-red-700 text-gray-800 font-bold py-2 px-4 border border-blue-700 rounded">
+                                                <td class="p-2 flex justify-end ">
+                                                    <Link href="/profile/editMyHouse">
+                                                        <button class="w-20 bg-yellow-400 hover:bg-orange-500 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mr-5">
+                                                            <center><MdOutlineEdit size={20}/></center>
+                                                        </button>
+                                                    </Link>
+                                                    <button class="w-20 bg-red-500 hover:bg-red-700 text-gray-800 font-bold py-2 px-4 border border-blue-700 rounded" onClick={handleDelete}>
                                                         <center><GoTrashcan size={20}/></center>
                                                     </button>
                                                 </td>
@@ -196,13 +134,21 @@ function MyHouse() {
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            </div>                         
                         </div>
+                      ))}
+                        {/* <Link> */}
+                        <center><button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-blue-700 rounded-full shadow mt-5">
+                                    Add new house
+                            </button></center>
+                        {/* </Link> */}
                     </div>                                    
-                </div>                              
+                </div>    
+                                        
             </div>
+            <Footer />  
         </div>  
-        <Footer />                         
+                              
         </>
     )
 }

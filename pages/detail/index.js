@@ -21,6 +21,7 @@ function DetailRoom() {
     const [rooms, setRooms] = useState([])
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+    const [image, setImage] = useState("")
     const days = sumDay()
     const price = sumPrice()
     const [priceFormat, setPriceFormat] = useState()
@@ -50,12 +51,31 @@ function DetailRoom() {
         .get('http://18.136.193.63:8081/rooms/1')
         .then (({data}) => {
             setRooms(data.data)
-            setPriceFormat(data.data.price)
+            setImage(data.data.Images[1].image)
+            // console.log(data.data.Images,'test foto');
+            // console.log(data.data.Images[0].image, 'tezt id');
+            // setPriceFormat(data.data.price)
         })
         .catch((err) =>{
             console.log(err, "error");
         })
     }, [])
+    // useEffect(() => {
+    //     // const token = localStorage.getItem("token")
+    //     // const config = {
+    //     //     headers: {Authorization: `Bearer ${token}`},
+    //     // }
+    //     axios
+    //     .get('http://18.136.193.63:8081/images/1')
+    //     .then (({data}) => {
+    //         console.log(data.data,"foto");
+    //         setImage(data.data)
+    //         // setPriceFormat(data.data.price)
+    //     })
+    //     .catch((err) =>{
+    //         console.log(err, "error");
+    //     })
+    // }, [])
 
     function addToCartHandler(){
         const body={
@@ -128,11 +148,12 @@ function DetailRoom() {
                         <div className="bg-teal-300 p-3 rounded mr-5">City center</div>
                     </div>
                     {/* Preview image */}
-                    <div className="relative h-[300px] sm:h-[500px] lg:h[500px] xl:h[600px] 2xl:h[700px] mt-10">
-                    <Image
-                            src={Room1}
+                    <div className="relative h-[300px] sm:h-[500px] lg:h[500px] xl:h[600px] 2xl:h[700px] mt-10 flex justify-center">
+                    <img
+                            src={image}
                             layout="fill"
                             objectFit="cover"
+                            width="full"
                         />
                     </div>
                     {/* Detail room */}

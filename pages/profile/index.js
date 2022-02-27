@@ -14,7 +14,7 @@ function Profile() {
     const [password, setPassword] = useState("");
 
     useEffect(() => {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjA3OTIsImlkIjozMCwicm9sZXMiOmZhbHNlfQ.rjug6ljhztL-9M6C3xYA5gizJoKrNgOGSSP_NeoPdiI"
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjk3NzgsImlkIjozMiwicm9sZXMiOmZhbHNlfQ.fPiKHiHr-kaFwe8eICcLIMudbX4ArhaRerOi8D6-ZNY"
         const config = {
             headers: {Authorization: `Bearer ${token}`},
         }
@@ -28,6 +28,22 @@ function Profile() {
             console.log(err, "error");
         })
     }, [])
+
+    function handleDelete() {
+        const token =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjk3NzgsImlkIjozMiwicm9sZXMiOmZhbHNlfQ.fPiKHiHr-kaFwe8eICcLIMudbX4ArhaRerOi8D6-ZNY';
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+        axios
+          .delete('http://18.136.193.63:8081/users', config)
+          .then(({ data }) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.log(err, 'error');
+          });
+      }
 
     return (
         <>
@@ -150,7 +166,7 @@ function Profile() {
                         </div>
 
                         <div class="mb-3 xl:w-96 pt-10 pb-10">
-                            <p class="text-blue-600">Delete Your Account</p><br/>
+                            <p class="text-blue-600 cursor-pointer" onClick={handleDelete}>Delete Your Account</p><br/>
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
                         </div>
                         <div className="buttonAction flex justify-between pb-5">

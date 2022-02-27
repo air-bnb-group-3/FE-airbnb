@@ -2,13 +2,56 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Link from "next/link"
 import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react'
+import axios from "axios";
 
 function EditMyHouse() {
     const router = useRouter();
+    const [house, setHouse] = useState([]);
+    const [roomName, setRoomName] = useState("");
+    const [description, setDescription] = useState("");
+    const [address, setAddress] = useState("");
+    const [price, setPrice] = useState("");
 
-    function reBack(){
-        router.push('/profile/editMyHouse')
-    }
+    useEffect(() => {
+        const token =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjA3OTIsImlkIjozMCwicm9sZXMiOmZhbHNlfQ.rjug6ljhztL-9M6C3xYA5gizJoKrNgOGSSP_NeoPdiI';
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+        axios
+          .get('http://18.136.193.63:8081/rooms/1', config)
+          .then(({ data }) => {
+            setProfile(data.data);
+            console.log(data.data);
+          })
+          .catch((err) => {
+            console.log(err, 'error');
+          });
+      }, []);
+    
+      function handleEdit() {
+        const body = {
+          name: name,
+          email: email,
+          password: password,
+        };
+        const token =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjk3NzgsImlkIjozMiwicm9sZXMiOmZhbHNlfQ.fPiKHiHr-kaFwe8eICcLIMudbX4ArhaRerOi8D6-ZNY';
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+        axios
+          .put('http://18.136.193.63:8081/users', body, config)
+          .then(({ data }) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.log(err, 'error');
+          });
+      }
+
+   
     return (
         <>
         <Navbar />
@@ -16,7 +59,7 @@ function EditMyHouse() {
             <div className="container mx-auto ">
                 <h1 class="text-center font-bold text-2xl">Edit my house</h1>
             </div>
-            <div className="max-w-6xl mx-5 pt-20 xl:mx-auto">  
+            <div className="max-w-6xl mx-5 pt-10 xl:mx-auto mb-10">  
                 <div className="grid grid-cols-4 gap-4 shadow-lg">
                     <div className="left ml-10 mt-10">
                         {/* Menu left */}
@@ -247,7 +290,7 @@ function EditMyHouse() {
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
                         </div>
                         <div className="buttonAction flex justify-between">
-                            <button class="w-40 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onClick={reBack}>
+                            <button class="w-40 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
                             Back
                             </button>
                             <button class="w-40 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
@@ -273,8 +316,9 @@ function EditMyHouse() {
                 </div>                
                
             </div>
+            <Footer/>
         </div>
-           <Footer/>
+           
         </>
     )
 }
