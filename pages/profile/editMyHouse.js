@@ -76,20 +76,6 @@ function EditMyHouse() {
         formData.append("total_person", person);
         formData.append("total_rooms", bath);
         formData.append("size_bed", bed);
-        const body = {
-            
-        //   formData.append('name', roomName),  
-        //   name: name,
-        //   description: description,
-        //   latitude: latitude,
-        //   longitude: longitude,
-        //   address: address,
-        //   price:price,
-        //   total_person:person,
-        //   total_rooms:bath,
-        //   size_bed:bed,  
-       
-        };
         const token =
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY';
         const config = {
@@ -375,8 +361,7 @@ function EditMyHouse() {
                                                 leading-tight 
                                                 focus:outline-none 
                                                 focus:bg-white 
-                                                focus:border-gray-500"
-                                               
+                                                focus:border-gray-500"                                               
                                                 >
                                                      onChange={e => handleBathChange(e)} 
                                             {
@@ -420,6 +405,9 @@ function EditMyHouse() {
                                     </div>
                                 </div>
                     </div>
+                  </div>
+                </div>
+              </div>
 
                         <div class="mb-3 xl:w-96 pt-10 pb-3">
                             <p class="text-blue-600">Delete Your House from List</p><br/>
@@ -454,9 +442,10 @@ function EditMyHouse() {
             </div>
             <Footer/>
         </div>
-           
-        </>
-    )
+      </div>
+      <Footer />
+    </>
+  );
 }
 
-export default EditMyHouse
+export default EditMyHouse;

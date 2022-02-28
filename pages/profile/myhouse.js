@@ -11,9 +11,6 @@ function MyHouse() {
     const [house, setHouse] = useState([]);
     const [roomName, setRoomName] = useState("");
     const [description, setDescription] = useState("");
-    
-
-   
 
     useEffect(() => {
     const token =
@@ -153,4 +150,6 @@ function MyHouse() {
     )
 }
 
-export default MyHouse
+
+
+export default MyHouse;

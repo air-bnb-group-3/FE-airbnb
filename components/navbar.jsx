@@ -2,31 +2,62 @@ import React from "react";
 import Image from "next/image";
 import navimg from "../assets/Group 14.png";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 function Navbar() {
+  const profile =
+    typeof window !== "undefined" ? localStorage.getItem("dataProfile") : null;
+  const getToken =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const router = useRouter();
+
+  function logOut() {
+    if (getToken) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("dataProfile");
+      router.push("/");
+    }
+  }
+
   return (
     <>
       <div className=" bg-white drop-shadow-md items-center h-[70px]">
         <div className="flex justify-between">
-          <div className="px-[80px] mt-2 ">
+          <div className="pl-[80px] mt-2 ">
             <Image src={navimg} width="140px" height="40px" />
           </div>
           <div className="flex items-center text-[15px] mt-2">
             <Link href="/">
-              <p className="font-semibold px-[60px] hover:text-orange-600 cursor-pointer">
+              <p className="font-semibold pl-[80px] hover:text-orange-600 cursor-pointer">
                 Home
               </p>
             </Link>
             <Link href="/nearbypage">
-              <p className="font-semibold pr-[60px] hover:text-orange-600 cursor-pointer">
+              <p className="font-semibold pl-[60px] hover:text-orange-600 cursor-pointer">
                 {" "}
                 Nearby
               </p>
             </Link>
-            <p className="font-semibold hover:text-orange-600 cursor-pointer">
-              {" "}
-              Contact Us
-            </p>
+            <Link href="/help">
+              <p className="font-semibold pl-[60px] hover:text-orange-600 cursor-pointer">
+                {" "}
+                Contact Us
+              </p>
+            </Link>
+            {profile === "user" ? (
+              <Link href="/profile">
+                <p className="font-semibold pl-[60px] hover:text-orange-600 cursor-pointer">
+                  {" "}
+                  Profile
+                </p>
+              </Link>
+            ) : null}
+            {profile === "admin" ? (
+              <p className="font-semibold pl-[60px] hover:text-orange-600 cursor-pointer">
+                {" "}
+                Admin
+              </p>
+            ) : null}
           </div>
           <div className="flex items-center">
             <div className="mt-3 xl:w-50 drop-shadow-lg ">
@@ -61,14 +92,24 @@ function Navbar() {
                 </button>
               </div>
             </div>
-            <Link href="/Sign-In">
+            {getToken ? (
               <button
                 type="button"
                 className=" mt-3 drop-shadow-lg inline-block mr-10 px-6 py-2.5 bg-orange-600 text-white font-medium text-xs leading-tight  rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                onClick={logOut}
               >
-                Sign In
+                Sign Out
               </button>
-            </Link>
+            ) : (
+              <Link href="/Sign-In">
+                <button
+                  type="button"
+                  className=" mt-3 drop-shadow-lg inline-block mr-10 px-6 py-2.5 bg-orange-600 text-white font-medium text-xs leading-tight  rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                >
+                  Sign In
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
