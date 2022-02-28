@@ -13,9 +13,6 @@ function Profile() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const router = useRouter();
-    const { id } = router.query;
-
     useEffect(() => {
         const token = localStorage.getItem("token")
         const config = {
@@ -37,31 +34,14 @@ function Profile() {
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
-        swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this account!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
+        axios
+          .delete('http://18.136.193.63:8081/users', config)
+          .then(({ data }) => {
+            console.log(data);
           })
-        .then((willDelete) => {
-            if (willDelete) {
-            axios
-            .delete('http://18.136.193.63:8081/users', config)
-            .then(({ data }) => {
-                console.log(data);
-            })
-            .catch((err) => {
-                console.log(err, 'error');
-            });
-            swal("Poof! Your account has been deleted!", {
-                icon: "success",
-            });
-            } else {
-            swal("Your imaginary file is safe!");
-            }
-        });
-        
+          .catch((err) => {
+            console.log(err, 'error');
+          });
       }
 
     return (
@@ -178,7 +158,6 @@ function Profile() {
                                     m-0
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                 "
-                                id="exampleEmail0"
                                 disabled
                                 value={profile.email}
                             />

@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
@@ -212,14 +211,12 @@ function History() {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
       <Footer />
     </>
   );
-
 }
 
 export default History;

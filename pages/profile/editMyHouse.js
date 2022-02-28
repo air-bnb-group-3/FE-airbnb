@@ -68,7 +68,6 @@ function EditMyHouse() {
         formData.append('total_rooms', parseInt(bath));
         formData.append('size_bed', bed);
         formData.append('files', image);
-
         const token = localStorage.getItem("token")
         const config = {
           headers: { Authorization: `Bearer ${token}` },
@@ -76,14 +75,14 @@ function EditMyHouse() {
         };
         swal({
             title: 'Are you sure?',
-            text: 'Check the data again !',
+            text: 'Once deleted, you will not be able to recover this imaginary file!',
             icon: 'warning',
             buttons: true,
             dangerMode: true,
           }).then((willEdit) => {
             if (willEdit) {
                 axios
-                .put(`http://18.136.193.63:8081/rooms/${id}`,formData, config)
+                .put('http://18.136.193.63:8081/rooms/44',formData, config)
                 .then(({ data }) => {
                   console.log(data);
                 })
@@ -94,33 +93,34 @@ function EditMyHouse() {
                 icon: 'success',
               });
             } else {
-              swal('Mission abort');
+              swal('Your imaginary file is safe!');
             }
           });       
       }
 
       function handleDelete() {
-        const token = localStorage.getItem("token")
+        const token =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMzI1MDUsImlkIjo0Miwicm9sZXMiOmZhbHNlfQ.8TTVJq2NioHG1lZOj1jWRDKds_v0sh44yL8EUiT0AyY';
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
         swal({
           title: 'Are you sure?',
-          text: 'Once deleted, you will not be able to recover this house!',
+          text: 'Once deleted, you will not be able to recover this account!',
           icon: 'warning',
           buttons: true,
           dangerMode: true,
         }).then((willEdit) => {
           if (willEdit) {
             axios
-              .delete(`http://18.136.193.63:8081/rooms/${id}`, config)
+              .delete('http://18.136.193.63:8081/rooms/1', config)
               .then(({ data }) => {
                 console.log(data);
               })
               .catch((err) => {
                 console.log(err, 'error');
               });
-            swal('Success delete rent house', {
+            swal('Success delete data', {
               icon: 'success',
             });
           } else {

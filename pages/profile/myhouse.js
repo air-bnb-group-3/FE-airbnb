@@ -146,4 +146,6 @@ function MyHouse() {
     )
 }
 
-export default MyHouse
+
+
+export default MyHouse;
