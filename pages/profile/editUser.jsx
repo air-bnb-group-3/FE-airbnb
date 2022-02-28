@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import Link from 'next/link';
+import swal from 'sweetalert';
+require('./bootstrap');
+require('sweetalert');
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
@@ -14,7 +17,7 @@ function EditUser() {
 
   useEffect(() => {
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjA3OTIsImlkIjozMCwicm9sZXMiOmZhbHNlfQ.rjug6ljhztL-9M6C3xYA5gizJoKrNgOGSSP_NeoPdiI';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY';
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
@@ -29,6 +32,23 @@ function EditUser() {
       });
   }, []);
 
+  function cekData() {
+    swal({
+      title: 'Are you sure?',
+      text: 'Once deleted, you will not be able to recover this imaginary file!',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    }).then((willEdit) => {
+      if (willEdit) {
+        swal('Success edit data', {
+          icon: 'success',
+        });
+      } else {
+        swal('Your imaginary file is safe!');
+      }
+    });
+  }
   function handleEdit() {
     const body = {
       name: name,
@@ -36,23 +56,38 @@ function EditUser() {
       password: password,
     };
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjk3NzgsImlkIjozMiwicm9sZXMiOmZhbHNlfQ.fPiKHiHr-kaFwe8eICcLIMudbX4ArhaRerOi8D6-ZNY';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY';
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    axios
-      .put('http://18.136.193.63:8081/users', body, config)
-      .then(({ data }) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err, 'error');
-      });
+    swal({
+      title: 'Are you sure?',
+      text: 'Once deleted, you will not be able to recover this imaginary file!',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    }).then((willEdit) => {
+      if (willEdit) {
+        axios
+          .put('http://18.136.193.63:8081/users', body, config)
+          .then(({ data }) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.log(err, 'error');
+          });
+        swal('Success edit data', {
+          icon: 'success',
+        });
+      } else {
+        swal('Abort the mission');
+      }
+    });
   }
 
   function handleDelete() {
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjk3NzgsImlkIjozMiwicm9sZXMiOmZhbHNlfQ.fPiKHiHr-kaFwe8eICcLIMudbX4ArhaRerOi8D6-ZNY';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY';
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };

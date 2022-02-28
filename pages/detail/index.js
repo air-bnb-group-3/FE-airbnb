@@ -23,7 +23,6 @@ function DetailRoom() {
     const [endDate, setEndDate] = useState(new Date());
     const [image, setImage] = useState("")
     const days = sumDay()
-    const price = sumPrice()
     const [priceFormat, setPriceFormat] = useState()
     const [variant, setVariant] = useState('danger');
     const [msg, setMsg] = useState('');
@@ -52,30 +51,12 @@ function DetailRoom() {
         .then (({data}) => {
             setRooms(data.data)
             setImage(data.data.Images[1].image)
-            // console.log(data.data.Images,'test foto');
-            // console.log(data.data.Images[0].image, 'tezt id');
-            // setPriceFormat(data.data.price)
         })
         .catch((err) =>{
             console.log(err, "error");
         })
     }, [])
-    // useEffect(() => {
-    //     // const token = localStorage.getItem("token")
-    //     // const config = {
-    //     //     headers: {Authorization: `Bearer ${token}`},
-    //     // }
-    //     axios
-    //     .get('http://18.136.193.63:8081/images/1')
-    //     .then (({data}) => {
-    //         console.log(data.data,"foto");
-    //         setImage(data.data)
-    //         // setPriceFormat(data.data.price)
-    //     })
-    //     .catch((err) =>{
-    //         console.log(err, "error");
-    //     })
-    // }, [])
+
 
     function addToCartHandler(){
         const body={
@@ -86,7 +67,7 @@ function DetailRoom() {
             headers: {Authorization: `Bearer ${token}`},
         }
         axios
-        .post('http://18.140.1.124:8081/booking/me', body, config)
+        .post('http://18.140.1.124:8081/booking', body, config)
         .then (({data})=>{
             console.log(data);
             setStatus(true)
@@ -94,10 +75,7 @@ function DetailRoom() {
             setVariant('success')    
         })
         .catch((err)=>{
-            if(product.qty<0){
-                setMsg(data.message)
-                setVariant('danger')
-            }
+           console.log(err, "error");
         })
     }
   
@@ -106,30 +84,9 @@ function DetailRoom() {
         const difTime = endDate.getTime() - startDate.getTime()
         const days = Math.round(difTime / (1000 * 60 * 60 * 24))
         const price = days * rooms.price
-        if(endDate.getTime() || startDate.getTime() === null){
-           
-        }
-        // setDays(days)
         return days
     }
-    
-    function sumPrice(){
-        const days = sumDay()
 
-
-        const price = days * 150000
-        // setPrice(price)
-        return price
-    }
-    if (loading) {
-        return (
-            <button type="button" class="bg-indigo-500 ..." disabled>
-            <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
-            </svg>
-            Processing...
-          </button>
-        );
-        }
 
     return (
         <>
@@ -149,12 +106,22 @@ function DetailRoom() {
                     </div>
                     {/* Preview image */}
                     <div className="relative h-[300px] sm:h-[500px] lg:h[500px] xl:h[600px] 2xl:h[700px] mt-10 flex justify-center">
-                    <img
-                            src={image}
-                            layout="fill"
-                            objectFit="cover"
-                            width="full"
-                        />
+                        {loading ? 
+                                //  <button type="button" class="bg-indigo-500 ..." disabled>
+                                <div>
+                                 <svg className="animate-spin h-60 w-60 mr-3 ..." viewBox="0 0 24 24">
+                                 </svg>
+                                 Processing...
+                                 </div>
+                            //    </button> 
+                            :
+                                <img
+                                src={image}
+                                layout="fill"
+                                objectFit="cover"
+                                width="full"
+                            />
+                    }     
                     </div>
                     {/* Detail room */}
                     <div className="mainCouse mt-10">
@@ -238,7 +205,7 @@ function DetailRoom() {
                                 </div>
                             </div>
                             <div className="bg-gray-200 p-7 rounded mr-5 w-full mx-auto">
-                                <div className="font-semibold text-3xl text-center">Rp {priceFormat}<span className="text-sm font-semibold">/ night</span></div>
+                                <div className="font-semibold text-3xl text-center">Rp {rooms.price}<span className="text-sm font-semibold">/ night</span></div>
                                 <hr className=" border-gray-300 mt-3" />
                                     <div className="flex justify-around mt-5">
                                         <div className="flex flex-col">
@@ -271,7 +238,7 @@ function DetailRoom() {
                                         <div className="flex justify-between">
                                             <span className="font-semibold">Total ( {days} ) hari</span>
                                             <div className="flex flex-col ml-5">
-                                                <h1 className="font-semibold">Rp {price}<span className="text-2xl"></span></h1>
+                                                <h1 className="font-semibold">Rp {sumDay()*rooms.price}<span className="text-2xl"></span></h1>
                                             </div>
                                         </div>                                        
                                          <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-semibold py-2 px-4 rounded mt-12">Book Now</button>                                     

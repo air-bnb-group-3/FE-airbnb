@@ -8,41 +8,95 @@ import axios from "axios";
 function EditMyHouse() {
     const router = useRouter();
     const [house, setHouse] = useState([]);
-    const [roomName, setRoomName] = useState("");
+    const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [address, setAddress] = useState("");
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
     const [price, setPrice] = useState("");
+    const [image, setImage] = useState("");
+    const [person, setPerson] = useState(["1","2","3","4","5"]);
+    const [bath, setBath] = useState(["1","2"]);
+    const [bed, setBed] = useState(["Single Bed","Twin Bed","Queen Bed"]);
+    
+    const Add = person.map(Add => Add)
+    const Add2 = bath.map(Add2 => Add2)
+    const Add3 = bed.map(Add3 => Add3)
 
     useEffect(() => {
         const token =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjA3OTIsImlkIjozMCwicm9sZXMiOmZhbHNlfQ.rjug6ljhztL-9M6C3xYA5gizJoKrNgOGSSP_NeoPdiI';
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY';
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
         axios
           .get('http://18.136.193.63:8081/rooms/1', config)
           .then(({ data }) => {
-            setProfile(data.data);
+            setHouse(data.data);
+            setImage(data.data.Images[1].image)
             console.log(data.data);
           })
           .catch((err) => {
             console.log(err, 'error');
           });
       }, []);
-    
+
+      const handleSubmit = async() => {
+        // store the states in the form data
+        // const FormData = require('form-data');
+       
+        const token =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY';
+        const config = {
+          headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" }
+        };
+      
+        try {
+          // make axios post request
+          const response = await axios({
+            method: "put",
+            url: "http://18.136.193.63:8081/rooms/1",
+            data: formData,
+            headers: config,
+          });
+        } catch(error) {
+          console.log(error)
+        }
+      }
+      
+      
       function handleEdit() {
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("description", description);
+        formData.append("address", address);
+        formData.append("latitude", latitude);
+        formData.append("longitude", longitude);
+        formData.append("price", price);
+        formData.append("total_person", person);
+        formData.append("total_rooms", bath);
+        formData.append("size_bed", bed);
         const body = {
-          name: name,
-          email: email,
-          password: password,
+            
+        //   formData.append('name', roomName),  
+        //   name: name,
+        //   description: description,
+        //   latitude: latitude,
+        //   longitude: longitude,
+        //   address: address,
+        //   price:price,
+        //   total_person:person,
+        //   total_rooms:bath,
+        //   size_bed:bed,  
+       
         };
         const token =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjk3NzgsImlkIjozMiwicm9sZXMiOmZhbHNlfQ.fPiKHiHr-kaFwe8eICcLIMudbX4ArhaRerOi8D6-ZNY';
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY';
         const config = {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
         };
         axios
-          .put('http://18.136.193.63:8081/users', body, config)
+          .put('http://18.136.193.63:8081/rooms/1',formData, config)
           .then(({ data }) => {
             console.log(data);
           })
@@ -50,6 +104,21 @@ function EditMyHouse() {
             console.log(err, 'error');
           });
       }
+      const handlePersonChange = (e) => { 
+        // console.clear(); 
+        // console.log((addrtype[e.target.value])); 
+        setPerson(person[e.target.value]) 
+    }
+    const handleBathChange = (e) => { 
+        // console.clear(); 
+        // console.log((addrtype[e.target.value])); 
+        setBath(bath[e.target.value]) 
+    }
+    const handleBedChange = (e) => { 
+        // console.clear(); 
+        // console.log((addrtype[e.target.value])); 
+        setBed(bed[e.target.value]) 
+    }
 
    
     return (
@@ -65,7 +134,7 @@ function EditMyHouse() {
                         {/* Menu left */}
                         <div className="container mx-auto px-4 pb-5">
                             <Link href="../../profile">
-                                <h1 className="cursor-pointer font-medium">Account</h1>
+                                <h1 className="cursor-pointer font-medium">Account</h1> 
                             </Link>
                             <hr className=" border-gray-400 mt-8 " />
                         </div>
@@ -108,8 +177,8 @@ function EditMyHouse() {
                                     m-0
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                 "
-                                id="exampleFormControlInput1"
-                                placeholder="Rumah waifumu mas"
+                                placeholder={house.name}
+                                onChange={(e) => setName(e.target.value)}
                             />
                         </div>
                         <div class="mb-3 xl:w-96 pb-3">
@@ -136,7 +205,8 @@ function EditMyHouse() {
                                 ease-in-out
                                 m-0
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                placeholder="deskripsi rumah waifumu mas"
+                                placeholder={house.description}
+                                onChange={(e) => setDescription(e.target.value)}
                             >
                             </textarea>
                         </div>
@@ -164,9 +234,69 @@ function EditMyHouse() {
                                     m-0
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                 "
-                                id="exampleFormControlInput1"
-                                placeholder="Alamat rumah waifumu mas"
+                                placeholder={house.address}
+                                onChange={(e) => setAddress(e.target.value)}
                             />
+                        </div>
+                        <div class="flex flex-wrap -mx-3 mb-2">
+                            <div class="w-full md:w-2/4 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-person">
+                                latitude
+                                </label>
+                                <input
+                                    type="text"
+                                    class="
+                                        appearance-none
+                                        form-control
+                                        block
+                                        w-full
+                                        px-4
+                                        py-3
+                                        text-base
+                                        font-normal
+                                        text-gray-700
+                                        bg-gray-200  
+                                        bg-clip-padding
+                                        border border-solid border-gray-300
+                                        rounded
+                                        transition
+                                        ease-in-out
+                                        m-0
+                                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                                    "
+                                    placeholder={house.latitude}
+                                    onChange={(e) => setLatitude(e.target.value)}
+                                />
+                            </div>
+                            <div class="w-full md:w-2/4 px-3 mb-6 md:mb-0">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-person">
+                                    longitude
+                                </label>
+                                    <input
+                                        type="text"
+                                        class="
+                                            appearance-none
+                                            form-control
+                                            block
+                                            w-full
+                                            px-4
+                                            py-3
+                                            text-base
+                                            font-normal
+                                            text-gray-700
+                                            bg-gray-200  
+                                            bg-clip-padding
+                                            border border-solid border-gray-300
+                                            rounded
+                                            transition
+                                            ease-in-out
+                                            m-0
+                                            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                                        "
+                                        placeholder={house.longitude}
+                                        onChange={(e) => setLongitude(e.target.value)}
+                                    />
+                            </div>   
                         </div>
                         <div class="mb-3 xl:w-96 pb-3">
                         <label for="exampleFormControlInput1" class="form-label inline-block mb-2 text-gray-700"
@@ -192,8 +322,8 @@ function EditMyHouse() {
                                     m-0
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                 "
-                                id="exampleFormControlInput1"
-                                placeholder="Rp 100.000.000"
+                                placeholder={house.price}
+                                onChange={(e) => setPrice(e.target.value)}
                             />
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-2">
@@ -215,11 +345,12 @@ function EditMyHouse() {
                                                 leading-tight 
                                                 focus:outline-none 
                                                 focus:bg-white 
-                                                focus:border-gray-500" 
-                                                id="grid-state">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
+                                                focus:border-gray-500"
+                                                >
+                                                     onChange={e => handlePersonChange(e)} 
+                                            {
+                                                Add.map((el, i) => <option i={i} value={i}>{el} </option>)
+                                            }
                                         </select>
                                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -244,10 +375,13 @@ function EditMyHouse() {
                                                 leading-tight 
                                                 focus:outline-none 
                                                 focus:bg-white 
-                                                focus:border-gray-500" 
-                                                id="grid-state">
-                                        <option>1</option>
-                                        <option>2</option>
+                                                focus:border-gray-500"
+                                               
+                                                >
+                                                     onChange={e => handleBathChange(e)} 
+                                            {
+                                                Add2.map((el, i) => <option i={i} value={i}>{el} </option>)
+                                            }    
                                         </select>
                                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -273,10 +407,12 @@ function EditMyHouse() {
                                                 focus:outline-none 
                                                 focus:bg-white 
                                                 focus:border-gray-500" 
-                                                id="grid-state">
-                                        <option>Single bed</option>
-                                        <option>Double bed</option>
-                                        <option>Queens bed</option>
+                                                
+                                                >
+                                                    onChange={e => handleBedChange(e)}
+                                            {
+                                                Add3.map((el, i) => <option i={i} value={i}>{el} </option>)
+                                            }
                                         </select>
                                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -293,7 +429,7 @@ function EditMyHouse() {
                             <button class="w-40 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
                             Back
                             </button>
-                            <button class="w-40 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                            <button class="w-40 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" onClick={handleEdit}>
                                 Save
                             </button>                         
                         </div>
@@ -302,12 +438,12 @@ function EditMyHouse() {
                     {/* Avatar */}
                     <div className="right flex flex-col mx-auto py-6 col-span-2 mr-20 mt-5">
                         <img 
-                            src="https://ecs7.tokopedia.net/blog-tokopedia-com/uploads/2020/02/4.-Junior-Suite-Room-sumber-gambar-Pixabay.jpg"
+                            src={image}
                             width={255}
                             height={170}
                         />
                         <div className="buttonUpload pt-5">
-                            <button class="w-64 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                            <button class="w-64 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" >
                                 Upload Picture
                             </button>
                         </div>
