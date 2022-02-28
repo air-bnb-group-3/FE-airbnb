@@ -1,4 +1,4 @@
-# airBnb-Clone project featuring FE and BE Alterra Academy
+# Ngineep yuuks!, your best vacation buddy ! (AirBnb-Clone Project Group 3)
 
 > this project based on airbnb application, modified with new design and work with one flow, book a room until payment section.
 > Live demo [_here_](ongoing...).
@@ -7,11 +7,10 @@
 
 - [General Info](#general-information)
 - [Technologies Used](#technologies-used)
-- [Built With](#built with packages)
+- [Built With](#Built-With)
 - [Features](#features)
 - [Screenshots](#screenshots)
 - [Setup](#setup)
-- [Usage](#usage)
 - [Project Status](#project-status)
 - [Room for Improvement](#room-for-improvement)
 - [Acknowledgements](#acknowledgements)
@@ -52,11 +51,16 @@ List the ready features here:
 
 ## Screenshots
 
-![homepage-section-1](./assets/Screenshot -homepage.png)
+                Home page and Rooms Nearby Section preview
 
-![homepage-section-2](./assets/Screenshot-homepage-2.png)
+![homepage-section-1](./assets/homepage-section-1.png)
 
-![homepage-section-3](./assets/Screenshot-homepage-3.png)
+![homepage-section-2](./assets/Screenshot-categoriespage-bindmap.png)
+
+                Detail Rooms and Other Section preview
+
+![homepage-section-1](./assets/Payment.png)
+![homepage-section-1](./assets/Booking.png)
 
 ## Setup
 
@@ -67,13 +71,6 @@ $ cd ../FE-airbnb
 $ npm install
 $ npm run dev
 ```
-
-## Usage
-
-How does one go about using it?
-Provide various use cases and code examples here.
-
-`write-your-code-here`
 
 ## Project Status
 
