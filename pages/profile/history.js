@@ -60,7 +60,7 @@ function History() {
                             <div class="font-semibold text-left">Amount</div>
                           </th>
                           <th class="p-2 whitespace-nowrap">
-                            <div class="font-semibold text-center">Country</div>
+                            <div class="font-semibold text-center">Status</div>
                           </th>
                         </tr>
                       </thead>
@@ -90,7 +90,7 @@ function History() {
                             </div>
                           </td>
                           <td class="p-2 whitespace-nowrap">
-                            <div class="text-lg text-center">Idn</div>
+                            <div class="text-lg text-center">paid</div>
                           </td>
                         </tr>
                         <tr>
@@ -118,7 +118,7 @@ function History() {
                             </div>
                           </td>
                           <td class="p-2 whitespace-nowrap">
-                            <div class="text-lg text-center">Idn</div>
+                            <div class="text-lg text-center">Paid</div>
                           </td>
                         </tr>
                         <tr>
@@ -146,7 +146,7 @@ function History() {
                             </div>
                           </td>
                           <td class="p-2 whitespace-nowrap">
-                            <div class="text-lg text-center">Idn</div>
+                            <div class="text-lg text-center">Paid</div>
                           </td>
                         </tr>
                         <tr>
@@ -174,7 +174,7 @@ function History() {
                             </div>
                           </td>
                           <td class="p-2 whitespace-nowrap">
-                            <div class="text-lg text-center">Idn</div>
+                            <div class="text-lg text-center">Ongoing</div>
                           </td>
                         </tr>
                         <tr>
@@ -202,7 +202,9 @@ function History() {
                             </div>
                           </td>
                           <td class="p-2 whitespace-nowrap">
-                            <div class="text-lg text-center">Idn</div>
+                            <div class="text-lg text-orange-600 text-center">
+                              Ongoing
+                            </div>
                           </td>
                         </tr>
                       </tbody>

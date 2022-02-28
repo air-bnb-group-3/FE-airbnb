@@ -5,6 +5,8 @@ import swal from "sweetalert";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import navimg from "../assets/Group 14.png";
+import Image from "next/image";
 
 const urlsignUp = "http://18.136.193.63:8081/users/register";
 
@@ -17,10 +19,12 @@ export default function SignUp() {
   const router = useRouter();
 
   const validateSignUp = () => {
-    if (userNameInput === "") {
+    if (userNameInput.trim() === "") {
       swal("jangan kosong yaa usernyaa");
     } else if (emailInput === "") {
       swal("jangan kosong yaa emailnyaa");
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailInput)) {
+      swal("input email yang benaar yaaa");
     } else if (passwordInput === "") {
       swal("jangan kosong yaa passwordnya");
     } else {
@@ -55,7 +59,7 @@ export default function SignUp() {
   return (
     <>
       {/* container */}
-      <div className="bg-gradient-to-r from-green-300 via-yellow-50 to-green-300 block h-screen items-center justify-center p-4 md:flex">
+      <div className="bg-[#f3f3f3] block h-screen items-center justify-center p-4 md:flex">
         {/* login card */}
         <div className="bg-cover bg-image flex flex-col items-center max-w-screen-lg overflow-hidden rounded-lg shadow-lg text-gray-600 w-full md:flex-row">
           {/* logo */}
@@ -64,13 +68,20 @@ export default function SignUp() {
             {/* <p className="italic text-lg">Silahkan Daftar</p> */}
           </div>
           {/* form */}
-          <div className="bg-white flex flex-col items-center p-4 space-y-8 w-full md:w-1/2">
+
+          <div className="bg-white flex flex-col items-center pt-10 space-y-8 w-full md:w-1/2">
             {/* welcome */}
-            <div className="flex flex-col items-center">
-              <h1 className="font-medium text-green-400 text-xl">
-                Selamat Datang
+            <div className=" w-[120px] h-[30px]">
+              <Image src={navimg} />
+            </div>
+            <div className="flex flex-col items-start">
+              <h1 className="font-bold  text-orange-600 text-[30px]">
+                Pengen Nginep Murah?
               </h1>
-              <p>Silahkan Daftar</p>
+              <p className="font-semibold text-left text-lg leading-[20px] mb-5">
+                yuk daftar sini ! <br />
+                <span className="text-[20px]">banyak promo looo !</span>
+              </p>
             </div>
 
             {/* inputs */}
@@ -122,12 +133,12 @@ export default function SignUp() {
             </form>
 
             {/* link */}
-            <div className="flex flex-col items-center">
-              <p className="italic">
-                Sudah punya akun?
+            <div className="flex flex-col pt-10 pb-10 ">
+              <p className="text-sm">
+                sudah daftar nih?
                 <NextLink href="/Sign-In">
-                  <a className="ml-1 text-green-500 hover:underline">
-                    Masuk di sini
+                  <a className="ml-1 text-sm text-orange-600 hover:underline">
+                    yuk login sini cuyy!
                   </a>
                 </NextLink>
               </p>
