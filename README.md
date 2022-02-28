@@ -7,6 +7,7 @@
 
 - [General Info](#general-information)
 - [Technologies Used](#technologies-used)
+- [Built With](#built with packages)
 - [Features](#features)
 - [Screenshots](#screenshots)
 - [Setup](#setup)
@@ -27,6 +28,20 @@
 - Next.js - version 12.1.0
 - TailwindCss - version 3.0.23
 
+## Built With
+
+- Next Js - Next Js simplified simplifies HTML, routing and interactions for rapid web development
+- Tailwind Css - simplified to styling, with inline styling
+- Geolib
+- React-Date-Picker
+- axios
+- date-fns
+- react-icons
+- react-map-gl
+- react-redux
+- redux-thunk
+- sweetalert
+
 ## Features
 
 List the ready features here:
@@ -37,14 +52,11 @@ List the ready features here:
 
 ## Screenshots
 
-![homepage-section-1]
-(./assets/Screenshot -homepage.png)
+![homepage-section-1](./assets/Screenshot -homepage.png)
 
-![homepage-section-2]
-(./assets/Screenshot-homepage-2.png)
+![homepage-section-2](./assets/Screenshot-homepage-2.png)
 
-![homepage-section-3]
-(./assets/Screenshot-homepage-3.png)
+![homepage-section-3](./assets/Screenshot-homepage-3.png)
 
 ## Setup
 
@@ -77,6 +89,7 @@ To do:
 
 - Feature to be added search feature, filter by facilites feature
 - Feature to be added make a marker on maps, that identified the rooms based on their latitude and longitude
+- make this website responsive
 
 ## Acknowledgements
 
@@ -87,5 +100,5 @@ Give credit here.
 
 ## Contact
 
-Created by [akmal](https://instagram.com/akmal) - feel free to contact me!
-Created by [trigha](https://instagram.com/trigha) - feel free to contact me!
+- Created by [akmal](https://instagram.com/akmal) - feel free to contact me!
+- Created by [trigha](https://instagram.com/trigha) - feel free to contact me!
