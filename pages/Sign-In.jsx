@@ -36,6 +36,7 @@ export default function SignIn() {
       .then((response) => {
         swal("yeeayy!", "kamu berhasil Login!", "success");
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("dataProfile", response.data.message);
         router.push("/");
       })
       .catch((error) => {
