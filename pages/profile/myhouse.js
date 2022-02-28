@@ -11,13 +11,13 @@ function MyHouse() {
     const [house, setHouse] = useState([]);
     const [roomName, setRoomName] = useState("");
     const [description, setDescription] = useState("");
-    
 
-   
+    const [token, setToken] = useState("");
+    const {id} = router.query;
+
 
     useEffect(() => {
-    const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjA3OTIsImlkIjozMCwicm9sZXMiOmZhbHNlfQ.rjug6ljhztL-9M6C3xYA5gizJoKrNgOGSSP_NeoPdiI';
+    const token = localStorage.getItem("token")
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
@@ -33,13 +33,12 @@ function MyHouse() {
     }, []);
 
     function handleDelete() {
-        const token =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjA3OTIsImlkIjozMCwicm9sZXMiOmZhbHNlfQ.rjug6ljhztL-9M6C3xYA5gizJoKrNgOGSSP_NeoPdiI';
+        const token = localStorage.getItem("token")
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
         axios
-          .delete('http://18.136.193.63:8081/rooms', config)
+          .delete(`http://18.136.193.63:8081/rooms${id}`, config)
           .then(({ data }) => {
             console.log(data);
           })
@@ -106,12 +105,6 @@ function MyHouse() {
                                                 <td class="p-2 whitespace-nowrap">
                                                     <div class="flex items-center">
                                                         <div class="w-13 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                                                            {/* <img 
-                                                            class="rounded-full" 
-                                                            src={el.image} 
-                                                            width="160"
-                                                            height="50" 
-                                                            /> */}
                                                         </div>
                                                         <div class="font-medium text-gray-800">{el.name}</div>
                                                     </div>
@@ -137,11 +130,11 @@ function MyHouse() {
                             </div>                         
                         </div>
                       ))}
-                        {/* <Link> */}
+                        <Link href="/profile/addNewHouse">
                         <center><button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-blue-700 rounded-full shadow mt-5">
                                     Add new house
                             </button></center>
-                        {/* </Link> */}
+                        </Link>
                     </div>                                    
                 </div>    
                                         

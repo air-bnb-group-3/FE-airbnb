@@ -13,8 +13,11 @@ function Profile() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const router = useRouter();
+    const { id } = router.query;
+
     useEffect(() => {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjk3NzgsImlkIjozMiwicm9sZXMiOmZhbHNlfQ.fPiKHiHr-kaFwe8eICcLIMudbX4ArhaRerOi8D6-ZNY"
+        const token = localStorage.getItem("token")
         const config = {
             headers: {Authorization: `Bearer ${token}`},
         }
@@ -30,19 +33,35 @@ function Profile() {
     }, [])
 
     function handleDelete() {
-        const token =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjk3NzgsImlkIjozMiwicm9sZXMiOmZhbHNlfQ.fPiKHiHr-kaFwe8eICcLIMudbX4ArhaRerOi8D6-ZNY';
+        const token = localStorage.getItem("token")
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
-        axios
-          .delete('http://18.136.193.63:8081/users', config)
-          .then(({ data }) => {
-            console.log(data);
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this account!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
           })
-          .catch((err) => {
-            console.log(err, 'error');
-          });
+        .then((willDelete) => {
+            if (willDelete) {
+            axios
+            .delete('http://18.136.193.63:8081/users', config)
+            .then(({ data }) => {
+                console.log(data);
+            })
+            .catch((err) => {
+                console.log(err, 'error');
+            });
+            swal("Poof! Your account has been deleted!", {
+                icon: "success",
+            });
+            } else {
+            swal("Your imaginary file is safe!");
+            }
+        });
+        
       }
 
     return (
