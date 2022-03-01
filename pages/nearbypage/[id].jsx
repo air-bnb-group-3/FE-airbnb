@@ -106,7 +106,12 @@ function nearbypage() {
                 ? dataCategories.Rooms.map((el, i) => (
                     <div className=" bg-white border-black solid mt-5 mb-5 ">
                       <div className="py-3 px-2 flex justify-start hover:opacity-70 cursor-pointer">
-                        <Image src={Kamar3} />
+                        <Image
+                          src={Kamar3}
+                          onClick={() => {
+                            router.push(`/detail/${i}`);
+                          }}
+                        />
                         <div className="px-5">
                           <p className="text-xs font-light">{el.description}</p>
                           <div>

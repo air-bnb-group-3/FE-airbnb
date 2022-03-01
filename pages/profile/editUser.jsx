@@ -1,51 +1,49 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import axios from 'axios';
-import Link from 'next/link';
-import swal from 'sweetalert';
-require('./bootstrap');
-require('sweetalert');
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
+import Link from "next/link";
+import swal from "sweetalert";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 
 function EditUser() {
   const [profile, setProfile] = useState([]);
-  const [token, setToken] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [token, setToken] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY';
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY";
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
     axios
-      .get('http://18.136.193.63:8081/users', config)
+      .get("http://18.136.193.63:8081/users", config)
       .then(({ data }) => {
         setProfile(data.data);
         console.log(data.data);
       })
       .catch((err) => {
-        console.log(err, 'error');
+        console.log(err, "error");
       });
   }, []);
 
   function cekData() {
     swal({
-      title: 'Are you sure?',
-      text: 'Once deleted, you will not be able to recover this imaginary file!',
-      icon: 'warning',
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
       buttons: true,
       dangerMode: true,
     }).then((willEdit) => {
       if (willEdit) {
-        swal('Success edit data', {
-          icon: 'success',
+        swal("Success edit data", {
+          icon: "success",
         });
       } else {
-        swal('Your imaginary file is safe!');
+        swal("Your imaginary file is safe!");
       }
     });
   }
@@ -56,48 +54,48 @@ function EditUser() {
       password: password,
     };
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY';
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY";
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
     swal({
-      title: 'Are you sure?',
-      text: 'Once deleted, you will not be able to recover this imaginary file!',
-      icon: 'warning',
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
       buttons: true,
       dangerMode: true,
     }).then((willEdit) => {
       if (willEdit) {
         axios
-          .put('http://18.136.193.63:8081/users', body, config)
+          .put("http://18.136.193.63:8081/users", body, config)
           .then(({ data }) => {
             console.log(data);
           })
           .catch((err) => {
-            console.log(err, 'error');
+            console.log(err, "error");
           });
-        swal('Success edit data', {
-          icon: 'success',
+        swal("Success edit data", {
+          icon: "success",
         });
       } else {
-        swal('Abort the mission');
+        swal("Abort the mission");
       }
     });
   }
 
   function handleDelete() {
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY';
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY";
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
     axios
-      .delete('http://18.136.193.63:8081/users', config)
+      .delete("http://18.136.193.63:8081/users", config)
       .then(({ data }) => {
         console.log(data);
       })
       .catch((err) => {
-        console.log(err, 'error');
+        console.log(err, "error");
       });
   }
 
@@ -232,7 +230,7 @@ function EditUser() {
                 <br />
                 <p>
                   Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry.{' '}
+                  typesetting industry.{" "}
                 </p>
               </div>
               <div className="buttonAction flex justify-between pb-5">
