@@ -6,15 +6,20 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 
-function Profile() {
+
+export default function Profile() {
+    
+
     const [profile, setProfile] = useState([]);
-    const [token, setToken] = useState("");
     const [user, setUser] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     useEffect(() => {
-        const token = localStorage.getItem("token")
+        const token = 
+        typeof window !== "undefined" ? localStorage.getItem("token") : null;
+        // localStorage.getItem('token');
+        console.log({token});
         const config = {
             headers: {Authorization: `Bearer ${token}`},
         }
@@ -192,5 +197,3 @@ function Profile() {
         </>
     )
 }
-
-export default Profile
