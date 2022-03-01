@@ -5,9 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: theme => ({
-        'image': "url('/WhiteRoom.jpg')"
-      })
+      backgroundImage: (theme) => ({
+        image: "url('/ishan-seefromthesky-LNdpi8Yzi34-unsplash.jpg')",
+      }),
     },
   },
   plugins: [],
