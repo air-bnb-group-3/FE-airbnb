@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react'
 import axios from "axios";
+import swal from 'sweetalert';
 
 function EditMyHouse() {
     const router = useRouter();
@@ -18,98 +19,130 @@ function EditMyHouse() {
     const [person, setPerson] = useState(["1","2","3","4","5"]);
     const [bath, setBath] = useState(["1","2"]);
     const [bed, setBed] = useState(["Single Bed","Twin Bed","Queen Bed"]);
+    const [createObjectURL, setCreateObjectURL] = useState(null);
+
+    const [token, setToken] = useState("");
+    const {id} = router.query;
     
     const Add = person.map(Add => Add)
     const Add2 = bath.map(Add2 => Add2)
     const Add3 = bed.map(Add3 => Add3)
 
+    const handlePersonChange = (e) => { 
+        setPerson(person[e.target.value]) 
+    }
+    const handleBathChange = (e) => { 
+        setBath(bath[e.target.value]) 
+    }
+    const handleBedChange = (e) => { 
+        setBed(bed[e.target.value]) 
+    }
+
     useEffect(() => {
-        const token =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY';
+        const token = localStorage.getItem("token")
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
         axios
-          .get('http://18.136.193.63:8081/rooms/1', config)
+          .get(`http://18.136.193.63:8081/rooms/${id}`, config)
           .then(({ data }) => {
             setHouse(data.data);
-            setImage(data.data.Images[1].image)
+            setImage(data.data.Images[0].image)
             console.log(data.data);
           })
           .catch((err) => {
             console.log(err, 'error');
           });
       }, []);
-
-      const handleSubmit = async() => {
-        // store the states in the form data
-        // const FormData = require('form-data');
-       
-        const token =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY';
-        const config = {
-          headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" }
-        };
-      
-        try {
-          // make axios post request
-          const response = await axios({
-            method: "put",
-            url: "http://18.136.193.63:8081/rooms/1",
-            data: formData,
-            headers: config,
-          });
-        } catch(error) {
-          console.log(error)
-        }
-      }
-      
-      
+    
       function handleEdit() {
         const formData = new FormData();
-        formData.append("name", name);
-        formData.append("description", description);
-        formData.append("address", address);
-        formData.append("latitude", latitude);
-        formData.append("longitude", longitude);
-        formData.append("price", price);
-        formData.append("total_person", person);
-        formData.append("total_rooms", bath);
-        formData.append("size_bed", bed);
-        const token =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMTU5NDcsImlkIjoxLCJyb2xlcyI6ZmFsc2V9.KWbdCZSlJ7bUDRX4U4vQg_eLRhogjIk0PW76RDy5yVY';
+        formData.append('category_id', 1);
+        formData.append('name', name);
+        formData.append('description', description);
+        formData.append('address', address);
+        formData.append('latitude', parseInt(latitude));
+        formData.append('longitude', parseInt(longitude));
+        formData.append('price', parseInt(price));
+        formData.append('total_person', parseInt(person));
+        formData.append('total_rooms', parseInt(bath));
+        formData.append('size_bed', bed);
+        formData.append('files', image);
+        const token = localStorage.getItem("token")
         const config = {
-          headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
+          headers: { Authorization: `Bearer ${token}` },
+          'Content-Type': 'multipart/form-data',
         };
-        axios
-          .put('http://18.136.193.63:8081/rooms/1',formData, config)
-          .then(({ data }) => {
-            console.log(data);
-          })
-          .catch((err) => {
-            console.log(err, 'error');
-          });
+        swal({
+            title: 'Are you sure?',
+            text: 'Once deleted, you will not be able to recover this imaginary file!',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+          }).then((willEdit) => {
+            if (willEdit) {
+                axios
+                .put('http://18.136.193.63:8081/rooms/44',formData, config)
+                .then(({ data }) => {
+                  console.log(data);
+                })
+                .catch((err) => {
+                  console.log(err, 'error');
+                });
+              swal('Success edit data', {
+                icon: 'success',
+              });
+            } else {
+              swal('Your imaginary file is safe!');
+            }
+          });       
       }
-      const handlePersonChange = (e) => { 
-        // console.clear(); 
-        // console.log((addrtype[e.target.value])); 
-        setPerson(person[e.target.value]) 
-    }
-    const handleBathChange = (e) => { 
-        // console.clear(); 
-        // console.log((addrtype[e.target.value])); 
-        setBath(bath[e.target.value]) 
-    }
-    const handleBedChange = (e) => { 
-        // console.clear(); 
-        // console.log((addrtype[e.target.value])); 
-        setBed(bed[e.target.value]) 
-    }
+
+      function handleDelete() {
+        const token =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYxMzI1MDUsImlkIjo0Miwicm9sZXMiOmZhbHNlfQ.8TTVJq2NioHG1lZOj1jWRDKds_v0sh44yL8EUiT0AyY';
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+        swal({
+          title: 'Are you sure?',
+          text: 'Once deleted, you will not be able to recover this account!',
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true,
+        }).then((willEdit) => {
+          if (willEdit) {
+            axios
+              .delete('http://18.136.193.63:8081/rooms/1', config)
+              .then(({ data }) => {
+                console.log(data);
+              })
+              .catch((err) => {
+                console.log(err, 'error');
+              });
+            swal('Success delete data', {
+              icon: 'success',
+            });
+          } else {
+            swal('Abort the mission');
+          }
+        });
+      }  
+    
+      const uploadToClient = (event) => {
+        if (event.target.files && event.target.files[0]) {
+          const i = event.target.files[0];
+    
+          setImage(i);
+          setCreateObjectURL(URL.createObjectURL(i));
+        }
+      };
 
    
     return (
         <>
         <Navbar />
+        
         <div className="h-auto pt-20 bg-gray-100">
             <div className="container mx-auto ">
                 <h1 class="text-center font-bold text-2xl">Edit my house</h1>
@@ -165,7 +198,9 @@ function EditMyHouse() {
                                 "
                                 placeholder={house.name}
                                 onChange={(e) => setName(e.target.value)}
+                                
                             />
+                            
                         </div>
                         <div class="mb-3 xl:w-96 pb-3">
                         <label for="exampleFormControlInput1" class="form-label inline-block mb-2 text-gray-700"
@@ -361,7 +396,8 @@ function EditMyHouse() {
                                                 leading-tight 
                                                 focus:outline-none 
                                                 focus:bg-white 
-                                                focus:border-gray-500"                                               
+                                                focus:border-gray-500"
+                                               
                                                 >
                                                      onChange={e => handleBathChange(e)} 
                                             {
@@ -405,18 +441,17 @@ function EditMyHouse() {
                                     </div>
                                 </div>
                     </div>
-                  </div>
-                </div>
-              </div>
 
                         <div class="mb-3 xl:w-96 pt-10 pb-3">
-                            <p class="text-blue-600">Delete Your House from List</p><br/>
+                            <p class="text-blue-600 cursor-pointer" onClick={handleDelete}>Delete Your House from List</p><br/>
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
                         </div>
                         <div className="buttonAction flex justify-between">
-                            <button class="w-40 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-                            Back
-                            </button>
+                            <Link href="/profile/myhouse">
+                                <button class="w-40 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                                Back
+                                </button>
+                            </Link>
                             <button class="w-40 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" onClick={handleEdit}>
                                 Save
                             </button>                         
@@ -425,27 +460,21 @@ function EditMyHouse() {
                     
                     {/* Avatar */}
                     <div className="right flex flex-col mx-auto py-6 col-span-2 mr-20 mt-5">
-                        <img 
-                            src={image}
-                            width={255}
-                            height={170}
-                        />
-                        <div className="buttonUpload pt-5">
-                            <button class="w-64 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" >
-                                Upload Picture
-                            </button>
-                        </div>
-                         
+                    <input type="file" name="myImage" onChange={uploadToClient} />
+                    {createObjectURL ? 
+                    <img src={createObjectURL} width={255} height={170} />
+                    : 
+                     <img src={image} width={255} height={170} />
+                    }       
                     </div>
                 </div>                
                
             </div>
             <Footer/>
         </div>
-      </div>
-      <Footer />
-    </>
-  );
+           
+        </>
+    )
 }
 
-export default EditMyHouse;
+export default EditMyHouse

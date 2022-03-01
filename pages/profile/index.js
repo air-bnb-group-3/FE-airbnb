@@ -2,69 +2,106 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
-import Navbar from "../../components/navbar";
-import Footer from "../../components/footer";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 
-function Profile() {
-  const [profile, setProfile] = useState([]);
-  const [token, setToken] = useState("");
-  const [user, setUser] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function Profile() {
+    
 
-  useEffect(() => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDU5MzQxODMsImlkIjo4LCJyb2xlcyI6dHJ1ZX0.Rkm8oBdgO4X4PloLhF1kUmO6hXTDShMjTSMAe1eZdiI";
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-    axios
-      .get("http://18.136.193.63:8081/users", config)
-      .then(({ data }) => {
-        setProfile(data.data);
-        console.log(data.data);
-      })
-      .catch((err) => {
-        console.log(err, "error");
-      });
-  }, []);
+    const [profile, setProfile] = useState([]);
+    const [user, setUser] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-  function handleDelete() {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJleHAiOjE2NDYwMjk3NzgsImlkIjozMiwicm9sZXMiOmZhbHNlfQ.fPiKHiHr-kaFwe8eICcLIMudbX4ArhaRerOi8D6-ZNY";
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-    axios
-      .delete("http://18.136.193.63:8081/users", config)
-      .then(({ data }) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err, "error");
-      });
-  }
+    useEffect(() => {
+        const token = localStorage.getItem("token")
+        typeof window !== "undefined" ? localStorage.getItem("token") : null;
+        // localStorage.getItem('token');
+        console.log({token});
+        const config = {
+            headers: {Authorization: `Bearer ${token}`},
+        }
+        axios
+        .get('http://18.136.193.63:8081/users',config)
+        .then (({data}) => {
+            setProfile(data.data)
+            console.log(data.data);
+        })
+        .catch((err) =>{
+            console.log(err, "error");
+        })
+    }, [])
 
-  return (
-    <>
-      <Navbar />
-      <div className="h-screen pt-20 bg-gray-100">
-        <div className="container mx-auto ">
-          <h1 class="text-center font-bold text-2xl">Account Setting</h1>
-        </div>
+ 
+    function handleDelete() {
+        const token = localStorage.getItem("token")
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+         swal({
+      title: 'Are you sure?',
+      text: 'Once deleted, you will not be able to recover this account!',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    }).then((willEdit) => {
+      if (willEdit) {
+       xios
+          .delete('http://18.136.193.63:8081/users', config)
+          .then(({ data }) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.log(err, 'error');
+          });
+        swal('Success delete data', {
+          icon: 'success',
+        });
+      } else {
+        swal('Abort the mission');
+      }
+    });
+      }
 
-        {/* Main course */}
-        <div className="flex justify-center flex-col mx-auto py-6 ml-24">
-          <div class="mb-3 xl:w-96 pb-3">
-            <label
-              for="exampleFormControlInput1"
-              class="form-label inline-block mb-2 text-gray-700"
-            >
-              Username
-            </label>
-            <input
-              type="text"
-              class="
+    return (
+        <>
+        <Navbar />
+        <div className="h-screen pt-20 bg-gray-100">
+            <div className="container mx-auto ">
+                <h1 class="text-center font-bold text-2xl">Account Setting</h1>
+            </div>
+            <div className="max-w-6xl mx-5 pt-20 xl:mx-auto">  
+                <div className="grid grid-cols-4 gap-4 shadow-lg">
+                    <div className="left ml-10">
+                        {/* Menu left */}
+                        <div className="container mx-auto px-4 pb-5">
+                            <Link href="../../profile">
+                                <h1 className="cursor-pointer font-medium">Account</h1>
+                            </Link>
+                            <hr className=" border-gray-400 mt-8" />
+                        </div>
+                       
+                        <div className="container mx-auto px-4 pb-5">  
+                            <Link href="../../profile/history">
+                                <h1 className="cursor-pointer font-medium">History</h1>
+                            </Link>
+                            <hr className=" border-gray-400 mt-8" />
+                        </div>
+                        <div className="container mx-auto px-4">
+                            <Link href="../../profile/myhouse">
+                                <h1 className="cursor-pointer font-medium">My House</h1>
+                            </Link>
+                        </div>
+                    </div>
+
+                    {/* Main course */}
+                    <div className="flex justify-center flex-col mx-auto py-6 ml-24">
+                        <div class="mb-3 xl:w-96 pb-3">
+                            <label for="exampleFormControlInput1" class="form-label inline-block mb-2 text-gray-700"
+                            >Username</label>
+                            <input
+                                type="text"
+                                class="
                                     form-control
                                     block
                                     w-full
@@ -82,21 +119,19 @@ function Profile() {
                                     m-0
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                 "
-              value={profile.name}
-              disabled
-              onChange={(e) => setUser(e.target.value)}
-            />
-          </div>
-          <div class="mb-3 xl:w-96 pb-3">
-            <label
-              for="examplePassword0"
-              class="form-label inline-block mb-2 text-gray-700"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              class="
+                               
+                                value={profile.name}    
+                                disabled
+                                onChange={(e) => setUser(e.target.value)}                        
+                            />
+                        </div>
+                        <div class="mb-3 xl:w-96 pb-3">
+                            <label class="form-label inline-block mb-2 text-gray-700"
+                                >Password</label
+                                >
+                                <input
+                                type="password"
+                                class="
                                     form-control
                                     block
                                     w-full
@@ -182,5 +217,3 @@ function Profile() {
     </>
   );
 }
-
-export default Profile;
