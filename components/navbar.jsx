@@ -19,6 +19,8 @@ function Navbar() {
     }
   }
 
+  console.log(profile, "ini respon profile");
+
   return (
     <>
       <div className=" bg-white drop-shadow-md items-center h-[70px]">
@@ -32,7 +34,7 @@ function Navbar() {
                 Home
               </p>
             </Link>
-            <Link href="/nearbypage">
+            <Link href="/nearbypage/2">
               <p className="font-semibold pl-[60px] hover:text-orange-600 cursor-pointer">
                 {" "}
                 Nearby
@@ -44,7 +46,7 @@ function Navbar() {
                 Contact Us
               </p>
             </Link>
-            {profile === "user" ? (
+            {profile === "USERS - berhasil masuk, mendapatkan token baru" ? (
               <Link href="/profile">
                 <p className="font-semibold pl-[60px] hover:text-orange-600 cursor-pointer">
                   {" "}
@@ -52,7 +54,7 @@ function Navbar() {
                 </p>
               </Link>
             ) : null}
-            {profile === "admin" ? (
+            {profile === "ADMIN - berhasil masuk, mendapatkan token baru" ? (
               <p className="font-semibold pl-[60px] hover:text-orange-600 cursor-pointer">
                 {" "}
                 Admin

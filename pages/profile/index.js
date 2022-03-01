@@ -5,8 +5,6 @@ import Link from "next/link";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
-
-
 export default function Profile() {
     
 
@@ -16,7 +14,7 @@ export default function Profile() {
     const [password, setPassword] = useState("");
 
     useEffect(() => {
-        const token = 
+        const token = localStorage.getItem("token")
         typeof window !== "undefined" ? localStorage.getItem("token") : null;
         // localStorage.getItem('token');
         console.log({token});
@@ -34,12 +32,21 @@ export default function Profile() {
         })
     }, [])
 
+ 
     function handleDelete() {
         const token = localStorage.getItem("token")
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
-        axios
+         swal({
+      title: 'Are you sure?',
+      text: 'Once deleted, you will not be able to recover this account!',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    }).then((willEdit) => {
+      if (willEdit) {
+       xios
           .delete('http://18.136.193.63:8081/users', config)
           .then(({ data }) => {
             console.log(data);
@@ -47,6 +54,13 @@ export default function Profile() {
           .catch((err) => {
             console.log(err, 'error');
           });
+        swal('Success delete data', {
+          icon: 'success',
+        });
+      } else {
+        swal('Abort the mission');
+      }
+    });
       }
 
     return (
@@ -105,14 +119,14 @@ export default function Profile() {
                                     m-0
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                 "
-                                id="exampleFormControlInput1"
+                               
                                 value={profile.name}    
                                 disabled
                                 onChange={(e) => setUser(e.target.value)}                        
                             />
                         </div>
                         <div class="mb-3 xl:w-96 pb-3">
-                            <label for="examplePassword0" class="form-label inline-block mb-2 text-gray-700"
+                            <label class="form-label inline-block mb-2 text-gray-700"
                                 >Password</label
                                 >
                                 <input
@@ -135,17 +149,20 @@ export default function Profile() {
                                     m-0
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                 "
-                                disabled
-                                placeholder="*********"
-                            />
-                        </div>
-                        <div class="mb-3 xl:w-96">
-                            <label for="exampleEmail0" class="form-label inline-block mb-2 text-gray-700"
-                            >Email input</label
-                            >
-                            <input
-                                type="email"
-                                class="
+              disabled
+              placeholder="*********"
+            />
+          </div>
+          <div class="mb-3 xl:w-96">
+            <label
+              for="exampleEmail0"
+              class="form-label inline-block mb-2 text-gray-700"
+            >
+              Email input
+            </label>
+            <input
+              type="email"
+              class="
                                     form-control
                                     block
                                     w-full
@@ -163,37 +180,40 @@ export default function Profile() {
                                     m-0
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                 "
-                                disabled
-                                value={profile.email}
-                            />
-                        </div>
+              disabled
+              value={profile.email}
+            />
+          </div>
 
-                        <div class="mb-3 xl:w-96 pt-10 pb-10">
-                            <p class="text-blue-600 cursor-pointer" onClick={handleDelete}>Delete Your Account</p><br/>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                        </div>
-                        <div className="buttonAction flex justify-between pb-5">
-                            <Link href="/profile/editUser">
-                                <button class="w-96 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                                    Change Data
-                                </button>
-                            </Link>                         
-                        </div>
-                    </div>
-                    
-                    {/* Avatar */}
-                    <div className="right flex flex-col mx-auto py-6 col-span-2 ml-80">
-                        <img 
-                            src="https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png"
-                            width={137}
-                            height={129}
-                        />                        
-                    </div>
-                </div>                
-               
-            </div>
+          <div class="mb-3 xl:w-96 pt-10 pb-10">
+            <p class="text-blue-600 cursor-pointer" onClick={handleDelete}>
+              Delete Your Account
+            </p>
+            <br />
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry.{" "}
+            </p>
+          </div>
+          <div className="buttonAction flex justify-between pb-5">
+            <Link href="/profile/editUser">
+              <button class="w-96 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                Change Data
+              </button>
+            </Link>
+          </div>
         </div>
-        <Footer />   
-        </>
-    )
+
+        {/* Avatar */}
+        <div className="right flex flex-col mx-auto py-6 col-span-2 ml-80">
+          <img
+            src="https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png"
+            width={137}
+            height={129}
+          />
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
 }

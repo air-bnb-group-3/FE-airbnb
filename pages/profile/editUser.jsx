@@ -1,40 +1,41 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import axios from 'axios';
-import Link from 'next/link';
-import swal from 'sweetalert';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
+import Link from "next/link";
+import swal from "sweetalert";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 
 function EditUser() {
   const [profile, setProfile] = useState([]);
-  const [token, setToken] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [token, setToken] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
+
     const token = localStorage.getItem('token');
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
     axios
-      .get('http://18.136.193.63:8081/users', config)
+      .get("http://18.136.193.63:8081/users", config)
       .then(({ data }) => {
         setProfile(data.data);
         console.log(data.data);
       })
       .catch((err) => {
-        console.log(err, 'error');
+        console.log(err, "error");
       });
   }, []);
-
   function handleEdit() {
     const body = {
       name: name,
       email: email,
       password: password,
     };
+
     const token = localStorage.getItem('token');
     const config = {
       headers: { Authorization: `Bearer ${token}` },
@@ -48,18 +49,18 @@ function EditUser() {
     }).then((willEdit) => {
       if (willEdit) {
         axios
-          .put('http://18.136.193.63:8081/users', body, config)
+          .put("http://18.136.193.63:8081/users", body, config)
           .then(({ data }) => {
             console.log(data);
           })
           .catch((err) => {
-            console.log(err, 'error');
+            console.log(err, "error");
           });
-        swal('Success edit data', {
-          icon: 'success',
+        swal("Success edit data", {
+          icon: "success",
         });
       } else {
-        swal('Abort the mission');
+        swal("Abort the mission");
       }
     });
   }
@@ -225,7 +226,7 @@ function EditUser() {
                 <br />
                 <p>
                   Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry.{' '}
+                  typesetting industry.{" "}
                 </p>
               </div>
               <div className="buttonAction flex justify-between pb-5">
