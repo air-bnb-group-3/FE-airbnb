@@ -4,7 +4,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: (theme) => ({
+        image: "url('/ishan-seefromthesky-LNdpi8Yzi34-unsplash.jpg')",
+      }),
+    },
   },
   plugins: [],
 };
